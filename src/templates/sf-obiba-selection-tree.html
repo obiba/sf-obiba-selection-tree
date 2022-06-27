@@ -1,4 +1,11 @@
-<div ng-controller="sfObibaSelectionTreeController" schema-validate="form" sf-field-model>
+<div
+  class="form-group"
+  ng-class="{'has-error': form.disableErrorState !== true && hasError(), 'has-success': form.disableSuccessState !== true && hasSuccess(), 'has-feedback': form.feedback !== false }"
+  ng-controller="sfObibaSelectionTreeController"
+  schema-validate="form"
+  sf-field-model>
+  <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
+
   <sf-obiba-selection-tree-node
     ng-repeat="node in form.schema.nodes"
     node="node"
@@ -6,4 +13,6 @@
     on-toggle-children-selections="onSelectionUpdate(selections)"
     readonly="form.readonly">
   </sf-obiba-selection-tree-node>
+
+  <span class="help-block" sf-message="form.helpvalue"></span>
 </div>
