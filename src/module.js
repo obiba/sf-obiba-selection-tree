@@ -89,13 +89,11 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
           return selections[selectionKey];
         });
 
-        console.log( $scope.ngModel, selected);
-
-        $scope.ngModel.$setViewValue(selected);
+        $scope.selected = selected;
       }
-
     }
 
+    $scope.selected = [];
     $scope.selections = {};
     $scope.onSelectionUpdate = updateSelections;
   }
