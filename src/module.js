@@ -21,7 +21,10 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
 .component('sfObibaSelectionTreeNode', {
   bindings: {
     node: '<',
-    readonly: '<'
+    selections: '<',
+    readonly: '<',
+    parentNode: '<',
+    onToggleChildrenSelections: '&'
   },
   templateUrl: 'src/templates/sf-obiba-selection-tree-node.html',
   controller: function () {
@@ -40,12 +43,52 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       ctrl.isOpen = !ctrl.isOpen;
     }
 
+    function toggleChildrenSelections(selections) {
+      console.log('toggleChildrenSelections', selections);
+
+      ctrl.onToggleChildrenSelections(selections);
+    }
+
+    function toggleNodeSelection(selectedNode) {
+      if (selectedNode) {
+        if (selectedNode.type === 'd' || (Array.isArray(selectedNode.nodes) && selectedNode.nodes.length > 0)) {
+          selectedNode.nodes.forEach(function(node) {
+            ctrl.selections[node.path] = ctrl.selections[ctrl.currentNodePath];
+          });
+        }
+      } else {
+        if (!ctrl.isLeaf) {
+          ctrl.currentNode.nodes.forEach(function(node) {
+            ctrl.selections[node.path] = ctrl.selections[ctrl.currentNodePath];
+            toggleNodeSelection(node);
+          });
+        }
+
+        if (ctrl.parentNode && Array.isArray(ctrl.parentNode.nodes)) {
+          var numberOfChildrenSelected = ctrl.parentNode.nodes.filter(function (node) {
+            return ctrl.selections[node.path];
+          }).length;
+
+          ctrl.selections[ctrl.parentNode.path] = numberOfChildrenSelected === ctrl.parentNode.nodes.length;
+        }
+
+        ctrl.toggleChildrenSelections(ctrl.selections);
+      }
+    }
+
     ctrl.$onChanges = controllerOnChanges;
     ctrl.toggleNode = toggleNode;
+    ctrl.toggleChildrenSelections = toggleChildrenSelections;
+    ctrl.toggleNodeSelection = toggleNodeSelection;
   }
 })
 .controller('sfObibaSelectionTreeController', ['$scope',
   function($scope) {
+    function updateSelections(selections) {
+      console.log('sfObibaSelectionTreeController updateSelections', selections);
+    }
 
+    $scope.selections = {};
+    $scope.onSelectionUpdate = updateSelections;
   }
 ]);

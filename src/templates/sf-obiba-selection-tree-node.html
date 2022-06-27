@@ -4,7 +4,7 @@
     <div ng-show="$ctrl.isLeaf" style="width: 1em;"></div>
   </button>
 
-  <input type="checkbox" name="{{$ctrl.currentNodePath}}">
+  <input type="checkbox" name="{{$ctrl.currentNodePath}}" ng-model="$ctrl.selections[$ctrl.currentNodePath]" ng-change="$ctrl.toggleNodeSelection()">
 
   <span style="margin-left: 1em;">
     <i class="glyphicon" ng-class="{'glyphicon-folder-open': !$ctrl.isLeaf, 'glyphicon-file': $ctrl.isLeaf}" style="margin-right: 0.5em;"></i>
@@ -15,7 +15,10 @@
     <sf-obiba-selection-tree-node
       ng-repeat="node in $ctrl.currentNode.nodes"
       node="node"
-      readonly="form.readonly">
+      selections="$ctrl.selections"
+      parent-node="$ctrl.currentNode"
+      on-toggle-children-selections="$ctrl.toggleChildrenSelections"
+      readonly="$ctrl.readonly">
     </sf-obiba-selection-tree-node>
   </div>
 </div>

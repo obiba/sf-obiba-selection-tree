@@ -11,7 +11,18 @@
 </head>
 <body ng-app="test">
   <div class="container-fluid" ng-controller="FormController">
-    <form sf-schema="schema" sf-form="form" sf-model="model" sf-options="sfOptions"></form>
+    <div class="row">
+      <div class="col-xs-6">
+        <h3>Render</h3>
+        <form sf-schema="schema" sf-form="form" sf-model="model" sf-options="sfOptions"></form>
+      </div>
+      <div class="col-xs-6">
+        <h3>Model</h3>
+        <pre>
+          {{model | json}}
+        </pre>
+      </div>
+    </div>
   </div>
 
   <script src="../bower_components/angular/angular.min.js"></script>
@@ -37,77 +48,79 @@
       angular.module('test', ["schemaForm","sfObibaSelectionTree"])
       .controller('FormController', ['$scope',
         function($scope) {
+          const nodes = [
+            {
+              "path": "aaa",
+              "title": "AAA Dir",
+              "type": "d",
+              "nodes": [
+                {
+                  "path": "aaa/item1",
+                  "title": "Item A1",
+                  "type": "f",
+                  "nodes": []
+                },
+                {
+                  "path": "aaa/aaaaaa",
+                  "title": "Child Dir of AAA",
+                  "type": "d",
+                  "nodes": [
+                    {
+                      "path": "aaa/aaaaaa/item2",
+                      "title": "Item A2",
+                      "nodes": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "path": "bbb",
+              "title": "BBB Dir",
+              "type": "d",
+              "nodes": [
+                {
+                  "path": "bbb/item1",
+                  "title": "Item B1",
+                  "type": "f",
+                  "nodes": []
+                },
+                {
+                  "path": "bbb/item2",
+                  "title": "Item B2"
+                },
+                {
+                  "path": "bbb/item3",
+                  "title": "Item B3",
+                  "type": "f"
+                }
+              ]
+            },
+            {
+              "path": "ccc",
+              "title": "CCC Dir",
+              "nodes": [
+                {
+                  "path": "ccc/item1",
+                  "title": "Item C1",
+                  "nodes": []
+                }
+              ]
+            },
+            {
+              "path": "item1",
+              "title": "Item 1",
+              "nodes": []
+            }
+          ];
+
           $scope.schema = {
             "type": "object",
             "properties": {
               "documents": {
                 "type": "array",
                 "format": "obibaSelectionTree",
-                "nodes": [
-                  {
-                    "path": "aaa",
-                    "title": "AAA Dir",
-                    "type": "d",
-                    "nodes": [
-                      {
-                        "path": "aaa/item1",
-                        "title": "Item A1",
-                        "type": "f",
-                        "nodes": []
-                      },
-                      {
-                        "path": "aaa/aaaaaa",
-                        "title": "Child Dir of AAA",
-                        "type": "d",
-                        "nodes": [
-                          {
-                            "path": "aaa/aaaaaa/item2",
-                            "title": "Item A2",
-                            "nodes": []
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "path": "bbb",
-                    "title": "BBB Dir",
-                    "type": "d",
-                    "nodes": [
-                      {
-                        "path": "bbb/item1",
-                        "title": "Item B1",
-                        "type": "f",
-                        "nodes": []
-                      },
-                      {
-                        "path": "bbb/item2",
-                        "title": "Item B2"
-                      },
-                      {
-                        "path": "bbb/item3",
-                        "title": "Item B3",
-                        "type": "f"
-                      }
-                    ]
-                  },
-                  {
-                    "path": "ccc",
-                    "title": "CCC Dir",
-                    "nodes": [
-                      {
-                        "path": "ccc/item1",
-                        "title": "Item C1",
-                        "nodes": []
-                      }
-                    ]
-                  },
-                  {
-                    "path": "item1",
-                    "title": "Item 1",
-                    "nodes": []
-                  }
-                ]
+                "nodes": nodes
               }
             }
           };
@@ -115,7 +128,7 @@
             "documents"
           ];
           $scope.model = [];
-          $scope.sfOptions = {formDefaults: { readonly:false, languages: {en: 'English', fr: 'French'}}};
+          $scope.sfOptions = {formDefaults: { readonly: false, languages: {en: 'English', fr: 'French'} }};
         }
       ]);
     })();
