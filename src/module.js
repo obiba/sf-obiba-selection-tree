@@ -1,4 +1,4 @@
-angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSimpleMdeTemplates', 'ngObiba'])
+angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTemplates', 'ngObiba'])
 .config(['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfBuilderProvider', 'sfPathProvider',
   function (schemaFormProvider, schemaFormDecoratorsProvider, sfBuilderProvider, sfPathProvider) {
 
