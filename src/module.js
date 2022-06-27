@@ -44,9 +44,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     }
 
     function toggleChildrenSelections(selections) {
-      console.log('toggleChildrenSelections', selections);
-
-      ctrl.onToggleChildrenSelections(selections);
+      ctrl.onToggleChildrenSelections({selections: selections});
     }
 
     function toggleNodeSelection(selectedNode) {
@@ -85,7 +83,17 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
 .controller('sfObibaSelectionTreeController', ['$scope',
   function($scope) {
     function updateSelections(selections) {
-      console.log('sfObibaSelectionTreeController updateSelections', selections);
+      var selectionsKeys = Object.keys(selections);
+      if (selectionsKeys && selectionsKeys.length > 0) {
+        var selected = selectionsKeys.filter(function (selectionKey) {
+          return selections[selectionKey];
+        });
+
+        console.log( $scope.ngModel, selected);
+
+        $scope.ngModel.$setViewValue(selected);
+      }
+
     }
 
     $scope.selections = {};
