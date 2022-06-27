@@ -45,24 +45,24 @@
                 "format": "obibaSelectionTree",
                 "nodes": [
                   {
-                    "path": "",
-                    "title": "",
+                    "path": "aaa",
+                    "title": "AAA Dir",
                     "type": "d",
                     "nodes": [
                       {
-                        "path": "",
-                        "title": "",
+                        "path": "aaa/item1",
+                        "title": "Item A1",
                         "type": "f",
                         "nodes": []
                       },
                       {
-                        "path": "",
-                        "title": "",
+                        "path": "aaa/aaaaaa",
+                        "title": "Child Dir of AAA",
                         "type": "d",
                         "nodes": [
                           {
-                            "path": "",
-                            "title": "",
+                            "path": "aaa/aaaaaa/item2",
+                            "title": "Item A2",
                             "nodes": []
                           }
                         ]
@@ -70,48 +70,50 @@
                     ]
                   },
                   {
-                    "path": "",
-                    "title": "",
+                    "path": "bbb",
+                    "title": "BBB Dir",
                     "type": "d",
                     "nodes": [
                       {
-                        "path": "",
-                        "title": "",
+                        "path": "bbb/item1",
+                        "title": "Item B1",
                         "type": "f",
                         "nodes": []
                       },
                       {
-                        "path": "",
-                        "title": ""
+                        "path": "bbb/item2",
+                        "title": "Item B2"
                       },
                       {
-                        "path": "",
-                        "title": "",
+                        "path": "bbb/item3",
+                        "title": "Item B3",
                         "type": "f"
                       }
                     ]
                   },
                   {
-                    "path": "",
-                    "title": "",
+                    "path": "ccc",
+                    "title": "CCC Dir",
                     "nodes": [
                       {
-                        "path": "",
-                        "title": "",
+                        "path": "ccc/item1",
+                        "title": "Item C1",
                         "nodes": []
                       }
                     ]
                   },
                   {
-                    "path": "",
-                    "title": "",
+                    "path": "item1",
+                    "title": "Item 1",
                     "nodes": []
                   }
                 ]
               }
             }
           };
-          $scope.form = [];
+          $scope.form = [
+            "documents"
+          ];
           $scope.model = [];
           $scope.sfOptions = {formDefaults: { readonly:false, languages: {en: 'English', fr: 'French'}}};
         }

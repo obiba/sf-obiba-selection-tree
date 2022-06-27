@@ -27,6 +27,21 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
   controller: function () {
     const ctrl = this;
 
+    function controllerOnChanges(changeObj) {
+      if (changeObj.node && changeObj.node.currentValue && changeObj.node.currentValue.path) {
+        ctrl.currentNode = changeObj.node.currentValue;
+        ctrl.currentNodePath = ctrl.node.path;
+        ctrl.currentNodeTitle = ctrl.node.title || ctrl.node.path;
+        ctrl.isLeaf = ctrl.node && (ctrl.node.type !== 'd' && (!Array.isArray(ctrl.node.nodes) || ctrl.node.nodes.length === 0));
+      }
+    }
+
+    function toggleNode() {
+      ctrl.isOpen = !ctrl.isOpen;
+    }
+
+    ctrl.$onChanges = controllerOnChanges;
+    ctrl.toggleNode = toggleNode;
   }
 })
 .controller('sfObibaSelectionTreeController', ['$scope',
