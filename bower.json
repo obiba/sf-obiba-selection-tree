@@ -22,7 +22,6 @@
     "tests"
   ],
   "dependencies": {
-    "simplemde": "^1.11.2",
     "ng-obiba": "https://github.com/obiba/ng-obiba.git#master"
   },
   "devDependencies": {

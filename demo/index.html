@@ -11,7 +11,7 @@
 </head>
 <body ng-app="test">
   <div class="container-fluid" ng-controller="FormController">
-    
+    <form sf-schema="schema" sf-form="form" sf-model="model" sf-options="sfOptions"></form>
   </div>
 
   <script src="../bower_components/angular/angular.min.js"></script>
@@ -29,7 +29,6 @@
   <script src="../bower_components/moment/min/locales.js"></script>
   <script src="../bower_components/angular-moment/angular-moment.js"></script>
   <script src="../bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
-  <script src="../bower_components/ui-select/dist/select.js"></script>
   <script src="../bower_components/ng-obiba/dist/ng-obiba.js"></script>
 
   <script src="../dist/sf-obiba-selection-tree.js"></script>
@@ -37,10 +36,83 @@
     angular.module('test', ["schemaForm","sfObibaUiSelect" ,"ui.bootstrap"])
     .controller('FormController', ['$scope',
       function($scope) {
-        $scope.schema = {};
+        $scope.schema = {
+          "type": "object",
+          "properties": {
+            "documents": {
+              "type": "array",
+              "format": "obibaSelectionTree",
+              "nodes": [
+                {
+                  "path": "",
+                  "title": "",
+                  "type": "d",
+                  "nodes": [
+                    {
+                      "path": "",
+                      "title": "",
+                      "type": "f",
+                      "nodes": []
+                    },
+                    {
+                      "path": "",
+                      "title": "",
+                      "type": "d",
+                      "nodes": [
+                        {
+                          "path": "",
+                          "title": "",
+                          "nodes": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "path": "",
+                  "title": "",
+                  "type": "d",
+                  "nodes": [
+                    {
+                      "path": "",
+                      "title": "",
+                      "type": "f",
+                      "nodes": []
+                    },
+                    {
+                      "path": "",
+                      "title": ""
+                    },
+                    {
+                      "path": "",
+                      "title": "",
+                      "type": "f"
+                    }
+                  ]
+                },
+                {
+                  "path": "",
+                  "title": "",
+                  "nodes": [
+                    {
+                      "path": "",
+                      "title": "",
+                      "nodes": []
+                    }
+                  ]
+                },
+                {
+                  "path": "",
+                  "title": "",
+                  "nodes": []
+                }
+              ]
+            }
+          }
+        };
         $scope.form = [];
-
         $scope.model = [];
+        $scope.sfOptions = {formDefaults: { readonly:false, languages: {en: 'English', fr: 'French'}}};
       }
     ]);
 

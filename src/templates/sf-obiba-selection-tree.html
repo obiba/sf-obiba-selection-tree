@@ -1,1 +1,7 @@
-<div ng-controller="sfObibaSelectionTreeController" schema-validate="form" sf-field-model></div>
+<div ng-controller="sfObibaSelectionTreeController" schema-validate="form" sf-field-model>
+  <sf-obiba-selection-tree-node
+    ng-repeat="node in form.nodes"
+    node="node"
+    readonly="form.readonly">
+  </sf-obiba-selection-tree-node>
+</div>

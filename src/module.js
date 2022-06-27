@@ -7,6 +7,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSimpleMdeTemplates
         var f = schemaFormProvider.stdFormObj(name, schema, options);
         f.key = options.path;
         f.type = 'obibaSelectionTree';
+        f.multiple = 'multiple';
         options.lookup[sfPathProvider.stringify(options.path)] = f;
         return f;
       }
@@ -14,9 +15,20 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSimpleMdeTemplates
 
     schemaFormProvider.defaults.array.unshift(obibaSelectionTree);
 
-    schemaFormDecoratorsProvider.defineAddOn('bootstrapDecorator', 'obibaUiSelect', 'src/templates/sf-obiba-selection-tree.html', sfBuilderProvider.stdBuilders);
+    schemaFormDecoratorsProvider.defineAddOn('bootstrapDecorator', 'obibaSelectionTree', 'src/templates/sf-obiba-selection-tree.html', sfBuilderProvider.stdBuilders);
   }
 ])
+.component('sfObibaSelectionTreeNode', {
+  bindings: {
+    node: '<',
+    readonly: '<'
+  },
+  templateUrl: 'src/templates/sf-obiba-selection-tree-node.html',
+  controller: function () {
+    const ctrl = this;
+
+  }
+})
 .controller('sfObibaSelectionTreeController', ['$scope',
   function($scope) {
 
