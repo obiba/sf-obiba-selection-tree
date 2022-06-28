@@ -24,6 +24,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     selections: '<',
     readonly: '<',
     parentNode: '<',
+    textFilter: '<',
     onToggleChildrenSelections: '&'
   },
   templateUrl: 'src/templates/sf-obiba-selection-tree-node.html',
@@ -50,13 +51,13 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     function toggleNodeSelection(selectedNode) {
       if (selectedNode) {
         if (selectedNode.type === 'd' || (Array.isArray(selectedNode.nodes) && selectedNode.nodes.length > 0)) {
-          selectedNode.nodes.forEach(function(node) {
+          selectedNode.nodes.forEach(function (node) {
             ctrl.selections[node.path] = ctrl.selections[ctrl.currentNodePath];
           });
         }
       } else {
         if (!ctrl.isLeaf) {
-          ctrl.currentNode.nodes.forEach(function(node) {
+          ctrl.currentNode.nodes.forEach(function (node) {
             ctrl.selections[node.path] = ctrl.selections[ctrl.currentNodePath];
             toggleNodeSelection(node);
           });
@@ -81,7 +82,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
   }
 })
 .controller('sfObibaSelectionTreeController', ['$scope',
-  function($scope) {
+  function ($scope) {
     function updateSelections() {
       var selectionsKeys = Object.keys($scope.selections);
       if (selectionsKeys && selectionsKeys.length > 0) {
@@ -104,4 +105,25 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     $scope.selections = {};
     $scope.onSelectionUpdate = updateSelections;
   }
-]);
+])
+.filter('treeFilter', function () {
+  function nodehasText(node, text) {
+    var strings = ((node.path || "") + (node.title || "")).toLowerCase();
+    var firstLevelIsOk = strings.indexOf(text) > -1;
+    var nextLevelIsOk = (Array.isArray(node.nodes) && node.nodes.filter(function (nextLevelNode) { return nodehasText(nextLevelNode, text); }).length > 0);
+
+    return firstLevelIsOk || nextLevelIsOk;
+  }
+
+  return function (nodes, text) {
+    var lowercaseText = (text || "").trim().toLowerCase();
+    
+    if (lowercaseText.length === 0) {
+      return nodes;
+    }
+    
+    return (nodes || []).filter(function (node) {
+      return nodehasText(node, lowercaseText);
+    });
+  }
+});

@@ -13,9 +13,10 @@
 
   <div ng-show="!$ctrl.isLeaf && $ctrl.isOpen" class="row" style="margin-left: 1.25em;">
     <sf-obiba-selection-tree-node
-      ng-repeat="node in $ctrl.currentNode.nodes"
+      ng-repeat="node in $ctrl.currentNode.nodes | treeFilter:$ctrl.textFilter"
       node="node"
       selections="$ctrl.selections"
+      text-filter="$ctrl.textFilter"
       parent-node="$ctrl.currentNode"
       on-toggle-children-selections="$ctrl.toggleChildrenSelections(selections)"
       readonly="$ctrl.readonly">

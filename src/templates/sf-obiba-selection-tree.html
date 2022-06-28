@@ -7,10 +7,20 @@
   <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
 
   <div class="row">
+    <div class="col-xs-4">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <input type="text" class="form-control" ng-model="text">
+      </div>
+    </div>        
+  </div>
+
+  <div class="row">
     <sf-obiba-selection-tree-node
-      ng-repeat="node in form.schema.nodes"
+      ng-repeat="node in form.schema.nodes | treeFilter:text"
       node="node"
       selections="selections"
+      text-filter="text"
       on-toggle-children-selections="onSelectionUpdate(selections)"
       readonly="form.readonly">
     </sf-obiba-selection-tree-node>
