@@ -22,12 +22,12 @@
     "tests"
   ],
   "dependencies": {
-    "ng-obiba": "https://github.com/obiba/ng-obiba.git#master"
+    "ng-obiba": "https://github.com/obiba/ng-obiba.git#2.0.2"
   },
   "devDependencies": {
     "angular-schema-form": "^0.8.13",
     "angular-schema-form-bootstrap": "^0.2.0",
     "bootstrap": "^3.3.7",
-    "angular-bootstrap": "2.5.0"
+    "angular-bootstrap": "^2.5.0"
   }
 }
