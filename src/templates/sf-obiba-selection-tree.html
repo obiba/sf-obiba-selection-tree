@@ -6,7 +6,7 @@
   sf-field-model>
   <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
 
-  <div class="row">
+  <div class="row" ng-hide="form.schema.noFilter">
     <div class="col-xs-4">
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
