@@ -1,5 +1,5 @@
-angular.module("sfObibaSelectionTreeTemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("src/templates/sf-obiba-selection-tree-node.html","<div class=\"row\">\n  <button ng-click=\"$ctrl.toggleNode()\" class=\"btn btn-sm btn-link\" type=\"button\">\n    <i class=\"glyphicon\" ng-show=\"!$ctrl.isLeaf\" ng-class=\"{\'glyphicon-menu-right\': !$ctrl.isOpen, \'glyphicon-menu-down\': $ctrl.isOpen}\"></i>\n    <div ng-show=\"$ctrl.isLeaf\" style=\"width: 1em;\"></div>\n  </button>\n\n  <input ng-show=\"!$ctrl.readonly\" type=\"checkbox\" name=\"{{$ctrl.currentNodePath}}\" ng-model=\"$ctrl.selections[$ctrl.currentNodePath]\" ng-change=\"$ctrl.toggleNodeSelection()\">\n\n  <span style=\"margin-left: 1em;\">\n    <i class=\"glyphicon\" ng-class=\"{\'glyphicon-folder-open\': !$ctrl.isLeaf, \'glyphicon-file\': $ctrl.isLeaf}\" style=\"margin-right: 0.5em;\"></i>\n    {{$ctrl.currentNodeTitle}}\n  </span>\n\n  <div ng-show=\"!$ctrl.isLeaf && $ctrl.isOpen\" class=\"row\" style=\"margin-left: 2em;\">\n    <sf-obiba-selection-tree-node\n      ng-repeat=\"node in $ctrl.currentNode.nodes\"\n      node=\"node\"\n      selections=\"$ctrl.selections\"\n      parent-node=\"$ctrl.currentNode\"\n      on-toggle-children-selections=\"$ctrl.toggleChildrenSelections(selections)\"\n      readonly=\"$ctrl.readonly\">\n    </sf-obiba-selection-tree-node>\n  </div>\n</div>");
-$templateCache.put("src/templates/sf-obiba-selection-tree.html","<div\n  class=\"form-group\"\n  ng-class=\"{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess(), \'has-feedback\': form.feedback !== false }\"\n  ng-controller=\"sfObibaSelectionTreeController\"\n  schema-validate=\"form\"\n  sf-field-model>\n  <label ng-if=\"!form.notitle\" class=\"control-label\" >{{form.title}}</label>\n\n  <sf-obiba-selection-tree-node\n    ng-repeat=\"node in form.schema.nodes\"\n    node=\"node\"\n    selections=\"selections\"\n    on-toggle-children-selections=\"onSelectionUpdate(selections)\"\n    readonly=\"form.readonly\">\n  </sf-obiba-selection-tree-node>\n\n  <span class=\"help-block\" sf-message=\"form.helpvalue\"></span>\n</div>");}]);
+angular.module("sfObibaSelectionTreeTemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("src/templates/sf-obiba-selection-tree-node.html","<div class=\"col-xs-12\">\n  <button ng-click=\"$ctrl.toggleNode()\" class=\"btn btn-sm btn-link\" type=\"button\">\n    <i class=\"glyphicon\" ng-show=\"!$ctrl.isLeaf\" ng-class=\"{\'glyphicon-menu-right\': !$ctrl.isOpen, \'glyphicon-menu-down\': $ctrl.isOpen}\"></i>\n    <div ng-show=\"$ctrl.isLeaf\" style=\"width: 1em;\"></div>\n  </button>\n\n  <input ng-show=\"!$ctrl.readonly\" type=\"checkbox\" name=\"{{$ctrl.currentNodePath}}\" ng-model=\"$ctrl.selections[$ctrl.currentNodePath]\" ng-change=\"$ctrl.toggleNodeSelection()\">\n\n  <span style=\"margin-left: 1em;\">\n    <i class=\"glyphicon\" ng-class=\"{\'glyphicon-folder-open\': !$ctrl.isLeaf, \'glyphicon-file\': $ctrl.isLeaf}\" style=\"margin-right: 0.5em;\"></i>\n    {{$ctrl.currentNodeTitle}}\n\n    <button ng-show=\"$ctrl.hasAttributes\" ng-click=\"$ctrl.toggleAttributes()\" class=\"btn btn-sm btn-link\" type=\"button\">\n      <i class=\"glyphicon glyphicon-asterisk\"></i>\n    </button>\n  </span>\n\n  <div ng-show=\"!$ctrl.isLeaf && $ctrl.isOpen\" class=\"row\" style=\"margin-left: 1.25em;\">\n    <sf-obiba-selection-tree-node\n      ng-repeat=\"node in $ctrl.currentNode.nodes\"\n      node=\"node\"\n      selections=\"$ctrl.selections\"\n      parent-node=\"$ctrl.currentNode\"\n      on-toggle-children-selections=\"$ctrl.toggleChildrenSelections(selections)\"\n      readonly=\"$ctrl.readonly\">\n    </sf-obiba-selection-tree-node>\n  </div>\n</div>");
+$templateCache.put("src/templates/sf-obiba-selection-tree.html","<div\n  class=\"form-group\"\n  ng-class=\"{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess(), \'has-feedback\': form.feedback !== false }\"\n  ng-controller=\"sfObibaSelectionTreeController\"\n  schema-validate=\"form\"\n  sf-field-model>\n  <label ng-if=\"!form.notitle\" class=\"control-label\" >{{form.title}}</label>\n\n  <div class=\"row\">\n    <sf-obiba-selection-tree-node\n      ng-repeat=\"node in form.schema.nodes\"\n      node=\"node\"\n      selections=\"selections\"\n      on-toggle-children-selections=\"onSelectionUpdate(selections)\"\n      readonly=\"form.readonly\">\n    </sf-obiba-selection-tree-node>\n  </div>\n\n  <span class=\"help-block\" sf-message=\"form.helpvalue\"></span>\n</div>");}]);
 angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTemplates', 'ngObiba'])
 .config(['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfBuilderProvider', 'sfPathProvider',
   function (schemaFormProvider, schemaFormDecoratorsProvider, sfBuilderProvider, sfPathProvider) {
@@ -38,11 +38,16 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
         ctrl.currentNodePath = ctrl.node.path;
         ctrl.currentNodeTitle = ctrl.node.title || ctrl.node.path;
         ctrl.isLeaf = ctrl.node && (ctrl.node.type !== 'd' && (!Array.isArray(ctrl.node.nodes) || ctrl.node.nodes.length === 0));
+        ctrl.hasAttributes = ctrl.node && ctrl.attributes;
       }
     }
 
     function toggleNode() {
       ctrl.isOpen = !ctrl.isOpen;
+    }
+
+    function toggleAttributes() {
+      ctrl.attributesAreOpen = !ctrl.attributesAreOpen;
     }
 
     function toggleChildrenSelections(selections) {
@@ -80,6 +85,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     ctrl.toggleNode = toggleNode;
     ctrl.toggleChildrenSelections = toggleChildrenSelections;
     ctrl.toggleNodeSelection = toggleNodeSelection;
+    ctrl.toggleAttributes = toggleAttributes;
   }
 })
 .controller('sfObibaSelectionTreeController', ['$scope',

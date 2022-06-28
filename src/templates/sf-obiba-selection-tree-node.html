@@ -1,4 +1,4 @@
-<div class="row">
+<div class="col-xs-12">
   <button ng-click="$ctrl.toggleNode()" class="btn btn-sm btn-link" type="button">
     <i class="glyphicon" ng-show="!$ctrl.isLeaf" ng-class="{'glyphicon-menu-right': !$ctrl.isOpen, 'glyphicon-menu-down': $ctrl.isOpen}"></i>
     <div ng-show="$ctrl.isLeaf" style="width: 1em;"></div>
@@ -11,7 +11,7 @@
     {{$ctrl.currentNodeTitle}}
   </span>
 
-  <div ng-show="!$ctrl.isLeaf && $ctrl.isOpen" class="row" style="margin-left: 2em;">
+  <div ng-show="!$ctrl.isLeaf && $ctrl.isOpen" class="row" style="margin-left: 1.25em;">
     <sf-obiba-selection-tree-node
       ng-repeat="node in $ctrl.currentNode.nodes"
       node="node"

@@ -6,13 +6,15 @@
   sf-field-model>
   <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
 
-  <sf-obiba-selection-tree-node
-    ng-repeat="node in form.schema.nodes"
-    node="node"
-    selections="selections"
-    on-toggle-children-selections="onSelectionUpdate(selections)"
-    readonly="form.readonly">
-  </sf-obiba-selection-tree-node>
+  <div class="row">
+    <sf-obiba-selection-tree-node
+      ng-repeat="node in form.schema.nodes"
+      node="node"
+      selections="selections"
+      on-toggle-children-selections="onSelectionUpdate(selections)"
+      readonly="form.readonly">
+    </sf-obiba-selection-tree-node>
+  </div>
 
   <span class="help-block" sf-message="form.helpvalue"></span>
 </div>
