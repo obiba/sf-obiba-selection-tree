@@ -85,11 +85,16 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     function updateSelections() {
       var selectionsKeys = Object.keys($scope.selections);
       if (selectionsKeys && selectionsKeys.length > 0) {
+        $scope.model.length = 0;
+
         var selected = selectionsKeys.filter(function (selectionKey) {
           return $scope.selections[selectionKey];
         });
 
         $scope.ngModel.$setViewValue(selected);
+        selected.forEach(function (s) {
+          $scope.model.push(s);
+        });
       }
     }
 
