@@ -85,22 +85,27 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
 })
 .controller('sfObibaSelectionTreeController', ['$scope',
   function ($scope) {
+
+    function updateModel(selected) {
+      var endOfPath = $scope.form.key.reduce(function (prev, curr) {
+        prev = prev ? prev : $scope.model;
+        return prev[curr];
+      });
+
+      endOfPath = selected;
+    }
+
     function updateSelections() {
       var selectionsKeys = Object.keys($scope.selections);
       if (selectionsKeys && selectionsKeys.length > 0) {
-        var model = $scope.model[$scope.form.key] || [];
-        model.length = 0;
+        updateModel([]);
 
         var selected = selectionsKeys.filter(function (selectionKey) {
           return $scope.selections[selectionKey];
         });
 
         $scope.ngModel.$setViewValue(selected);
-        selected.forEach(function (s) {
-          model.push(s);
-        });
-
-        $scope.model[$scope.form.key] = model;
+        updateModel(selected);
       }
     }
 
