@@ -8,7 +8,8 @@
 
   <span style="margin-left: 1em;">
     <i class="glyphicon" ng-class="{'glyphicon-folder-open': !$ctrl.isLeaf, 'glyphicon-file': $ctrl.isLeaf}" style="margin-right: 0.5em;"></i>
-    {{$ctrl.currentNodeTitle}}
+    <span ng-show="!$ctrl.hasAttributes">{{$ctrl.currentNodeTitle}}</span>
+    <button ng-show="$ctrl.hasAttributes" ng-click="$ctrl.toggleAttributes($ctrl.currentNode)" class="btn btn-link" type="button">{{$ctrl.currentNodeTitle}}</button>
   </span>
 
   <div ng-show="!$ctrl.isLeaf && $ctrl.isOpen" class="row" style="margin-left: 1.25em;">
@@ -19,6 +20,7 @@
       text-filter="$ctrl.textFilter"
       parent-node="$ctrl.currentNode"
       on-toggle-children-selections="$ctrl.toggleChildrenSelections(selections)"
+      on-toggle-attributes="$ctrl.toggleAttributes(node)"
       readonly="$ctrl.readonly">
     </sf-obiba-selection-tree-node>
   </div>

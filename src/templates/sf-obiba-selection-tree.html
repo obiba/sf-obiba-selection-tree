@@ -16,15 +16,21 @@
   </div>
 
   <div class="row">
-    <sf-obiba-selection-tree-node
-      ng-repeat="node in form.schema.nodes | treeFilter:text"
-      node="node"
-      selections="selections"
-      text-filter="text"
-      on-toggle-children-selections="onSelectionUpdate(selections)"
-      readonly="form.readonly">
-    </sf-obiba-selection-tree-node>
-  </div>
+    <div ng-class="{'col-xs-12': !nodeAttributeShown, 'col-xs-5': nodeAttributeShown}">
+      <sf-obiba-selection-tree-node
+        ng-repeat="node in form.schema.nodes | treeFilter:text"
+        node="node"
+        selections="selections"
+        text-filter="text"
+        on-toggle-children-selections="onSelectionUpdate(selections)"
+        on-toggle-attributes="toggleNodeAttributes(node)"
+        readonly="form.readonly">
+      </sf-obiba-selection-tree-node>
+    </div>
 
+    <div ng-show="nodeAttributeShown" style="box-shadow: 0 5px 15px rgba(0,0,0,0.5);" class="col-xs-7">
+      <p ng-bind-html="renderedAttribute"></p>
+    </div>    
+  </div>
   <span class="help-block" sf-message="form.helpvalue"></span>
 </div>
