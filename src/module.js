@@ -26,7 +26,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     parentNode: '<',
     textFilter: '<',
     onToggleChildrenSelections: '&',
-    onToggleAttributes: '&'
+    onToggleDescription: '&'
   },
   templateUrl: 'src/templates/sf-obiba-selection-tree-node.html',
   controller: function () {
@@ -38,7 +38,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
         ctrl.currentNodePath = ctrl.node.path;
         ctrl.currentNodeTitle = ctrl.node.title || ctrl.node.path;
         ctrl.isLeaf = ctrl.node && (ctrl.node.type !== 'd' && (!Array.isArray(ctrl.node.nodes) || ctrl.node.nodes.length === 0));
-        ctrl.hasAttributes = ctrl.node && (Array.isArray(ctrl.node.attributes) && ctrl.node.attributes.length > 0);
+        ctrl.hasDescription = ctrl.node && ctrl.node.description;
       }
     }
 
@@ -50,8 +50,8 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       ctrl.onToggleChildrenSelections({selections: selections});
     }
 
-    function toggleAttributes(node) {
-      ctrl.onToggleAttributes({node: node});
+    function toggleDescription(node) {
+      ctrl.onToggleDescription({node: node});
     }
 
     function toggleNodeSelection(selectedNode) {
@@ -84,7 +84,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     ctrl.$onChanges = controllerOnChanges;
     ctrl.toggleNode = toggleNode;
     ctrl.toggleChildrenSelections = toggleChildrenSelections;
-    ctrl.toggleAttributes = toggleAttributes;
+    ctrl.toggleDescription = toggleDescription;
     ctrl.toggleNodeSelection = toggleNodeSelection;
   }
 })
@@ -114,34 +114,39 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       }
     }
 
-    function toggleNodeAttributes(node) {
-      if (!$scope.nodeAttributeShown || $scope.nodeAttributeShown !== node.path) {
-        $scope.nodeAttributeShown = node.path;
-        render(node.attributes);
+    function toggleNodeDescription(node) {
+      if (!$scope.nodeDescriptionShown || $scope.nodeDescriptionShown !== node.path) {
+        $scope.nodeDescriptionShown = node.path;
+        render(node.description);
       } else {
-        $scope.nodeAttributeShown = undefined;
-        $scope.renderedAttribute = '';
+        $scope.nodeDescriptionShown = undefined;
+        $scope.renderedDescription = '';
       }      
     }
 
-    function render(attributes) {
+    function render(lines) {
       var html = '';
-      attributes.forEach(function (attribute) {
+      var appendLineToHtml = function (line) {
         if (html.trim().length > 0) {
           html = html + '\n\n';
         }
 
-        html = html + (attribute.title && attribute.title.trim().length > 0 ? attribute.title + '\n\n' : '') + (attribute.body && attribute.body.trim().length > 0 ? attribute.body : '');
-      });
+        html = html + (line && line.trim().length > 0 ? line + '\n\n' : '');
+      };
 
-      $scope.renderedAttribute = marked(html);
+      if (Array.isArray(lines))
+        lines.forEach(appendLineToHtml);
+      else
+        appendLineToHtml(lines);
+
+      $scope.renderedDescription = marked(html);
     }
 
-    $scope.nodeAttributeShown = undefined;
-    $scope.renderedAttribute = '';
+    $scope.nodeDescriptionShown = undefined;
+    $scope.renderedDescription = '';
     $scope.selections = {};
     $scope.onSelectionUpdate = updateSelections;
-    $scope.toggleNodeAttributes = toggleNodeAttributes;
+    $scope.toggleNodeDescription = toggleNodeDescription;
   }
 ])
 .filter('treeFilter', function () {

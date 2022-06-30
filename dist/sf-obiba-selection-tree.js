@@ -1,5 +1,5 @@
-angular.module("sfObibaSelectionTreeTemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("src/templates/sf-obiba-selection-tree-node.html","<div class=\"col-xs-12\">\n  <button ng-click=\"$ctrl.toggleNode()\" class=\"btn btn-sm btn-link\" type=\"button\">\n    <i class=\"glyphicon\" ng-show=\"!$ctrl.isLeaf\" ng-class=\"{\'glyphicon-menu-right\': !$ctrl.isOpen, \'glyphicon-menu-down\': $ctrl.isOpen}\"></i>\n    <div ng-show=\"$ctrl.isLeaf\" style=\"width: 1em;\"></div>\n  </button>\n\n  <input ng-show=\"!$ctrl.readonly\" type=\"checkbox\" name=\"{{$ctrl.currentNodePath}}\" ng-model=\"$ctrl.selections[$ctrl.currentNodePath]\" ng-change=\"$ctrl.toggleNodeSelection()\">\n\n  <span style=\"margin-left: 1em;\">\n    <i class=\"glyphicon\" ng-class=\"{\'glyphicon-folder-open\': !$ctrl.isLeaf, \'glyphicon-file\': $ctrl.isLeaf}\" style=\"margin-right: 0.5em;\"></i>\n    <span ng-show=\"!$ctrl.hasAttributes\">{{$ctrl.currentNodeTitle}}</span>\n    <button ng-show=\"$ctrl.hasAttributes\" ng-click=\"$ctrl.toggleAttributes($ctrl.currentNode)\" class=\"btn btn-link\" type=\"button\">{{$ctrl.currentNodeTitle}}</button>\n  </span>\n\n  <div ng-show=\"!$ctrl.isLeaf && $ctrl.isOpen\" class=\"row\" style=\"margin-left: 1.25em;\">\n    <sf-obiba-selection-tree-node\n      ng-repeat=\"node in $ctrl.currentNode.nodes | treeFilter:$ctrl.textFilter\"\n      node=\"node\"\n      selections=\"$ctrl.selections\"\n      text-filter=\"$ctrl.textFilter\"\n      parent-node=\"$ctrl.currentNode\"\n      on-toggle-children-selections=\"$ctrl.toggleChildrenSelections(selections)\"\n      on-toggle-attributes=\"$ctrl.toggleAttributes(node)\"\n      readonly=\"$ctrl.readonly\">\n    </sf-obiba-selection-tree-node>\n  </div>\n</div>");
-$templateCache.put("src/templates/sf-obiba-selection-tree.html","<div\n  class=\"form-group\"\n  ng-class=\"{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess(), \'has-feedback\': form.feedback !== false }\"\n  ng-controller=\"sfObibaSelectionTreeController\"\n  schema-validate=\"form\"\n  sf-field-model>\n  <label ng-if=\"!form.notitle\" class=\"control-label\" >{{form.title}}</label>\n\n  <div class=\"row\" ng-hide=\"form.schema.noFilter\">\n    <div class=\"col-xs-4\">\n      <div class=\"input-group\">\n        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-search\"></i></span>\n        <input type=\"text\" class=\"form-control\" ng-model=\"text\">\n      </div>\n    </div>        \n  </div>\n\n  <div class=\"row\">\n    <div ng-class=\"{\'col-xs-12\': !nodeAttributeShown, \'col-xs-5\': nodeAttributeShown}\">\n      <sf-obiba-selection-tree-node\n        ng-repeat=\"node in form.schema.nodes | treeFilter:text\"\n        node=\"node\"\n        selections=\"selections\"\n        text-filter=\"text\"\n        on-toggle-children-selections=\"onSelectionUpdate(selections)\"\n        on-toggle-attributes=\"toggleNodeAttributes(node)\"\n        readonly=\"form.readonly\">\n      </sf-obiba-selection-tree-node>\n    </div>\n\n    <div ng-show=\"nodeAttributeShown\" style=\"box-shadow: 0 5px 15px rgba(0,0,0,0.5);\" class=\"col-xs-7\">\n      <p ng-bind-html=\"renderedAttribute\"></p>\n    </div>    \n  </div>\n  <span class=\"help-block\" sf-message=\"form.helpvalue\"></span>\n</div>");}]);
+angular.module("sfObibaSelectionTreeTemplates", []).run(["$templateCache", function($templateCache) {$templateCache.put("src/templates/sf-obiba-selection-tree-node.html","<div class=\"col-xs-12\">\n  <button ng-click=\"$ctrl.toggleNode()\" class=\"btn btn-sm btn-link\" type=\"button\">\n    <i class=\"glyphicon\" ng-show=\"!$ctrl.isLeaf\" ng-class=\"{\'glyphicon-menu-right\': !$ctrl.isOpen, \'glyphicon-menu-down\': $ctrl.isOpen}\"></i>\n    <div ng-show=\"$ctrl.isLeaf\" style=\"width: 1em;\"></div>\n  </button>\n\n  <input ng-show=\"!$ctrl.readonly\" type=\"checkbox\" name=\"{{$ctrl.currentNodePath}}\" ng-model=\"$ctrl.selections[$ctrl.currentNodePath]\" ng-change=\"$ctrl.toggleNodeSelection()\">\n\n  <span style=\"margin-left: 1em;\">\n    <i class=\"glyphicon\" ng-class=\"{\'glyphicon-folder-open\': !$ctrl.isLeaf, \'glyphicon-file\': $ctrl.isLeaf}\" style=\"margin-right: 0.5em;\"></i>\n    <span ng-show=\"!$ctrl.hasDescription\">{{$ctrl.currentNodeTitle}}</span>\n    <button ng-show=\"$ctrl.hasDescription\" ng-click=\"$ctrl.toggleDescription($ctrl.currentNode)\" class=\"btn btn-link\" type=\"button\">{{$ctrl.currentNodeTitle}}</button>\n  </span>\n\n  <div ng-show=\"!$ctrl.isLeaf && $ctrl.isOpen\" class=\"row\" style=\"margin-left: 1.25em;\">\n    <sf-obiba-selection-tree-node\n      ng-repeat=\"node in $ctrl.currentNode.nodes | treeFilter:$ctrl.textFilter\"\n      node=\"node\"\n      selections=\"$ctrl.selections\"\n      text-filter=\"$ctrl.textFilter\"\n      parent-node=\"$ctrl.currentNode\"\n      on-toggle-children-selections=\"$ctrl.toggleChildrenSelections(selections)\"\n      on-toggle-Description=\"$ctrl.toggleDescription(node)\"\n      readonly=\"$ctrl.readonly\">\n    </sf-obiba-selection-tree-node>\n  </div>\n</div>");
+$templateCache.put("src/templates/sf-obiba-selection-tree.html","<div\n  class=\"form-group\"\n  ng-class=\"{\'has-error\': form.disableErrorState !== true && hasError(), \'has-success\': form.disableSuccessState !== true && hasSuccess(), \'has-feedback\': form.feedback !== false }\"\n  ng-controller=\"sfObibaSelectionTreeController\"\n  schema-validate=\"form\"\n  sf-field-model>\n  <label ng-if=\"!form.notitle\" class=\"control-label\" >{{form.title}}</label>\n\n  <div class=\"row\" ng-hide=\"form.schema.noFilter\">\n    <div class=\"col-xs-4\">\n      <div class=\"input-group\">\n        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-search\"></i></span>\n        <input type=\"text\" class=\"form-control\" ng-model=\"text\">\n      </div>\n    </div>        \n  </div>\n\n  <div class=\"row\">\n    <div ng-class=\"{\'col-xs-12\': !nodeDescriptionShown, \'col-xs-5\': nodeDescriptionShown}\">\n      <sf-obiba-selection-tree-node\n        ng-repeat=\"node in form.schema.nodes | treeFilter:text\"\n        node=\"node\"\n        selections=\"selections\"\n        text-filter=\"text\"\n        on-toggle-children-selections=\"onSelectionUpdate(selections)\"\n        on-toggle-description=\"toggleNodeDescription(node)\"\n        readonly=\"form.readonly\">\n      </sf-obiba-selection-tree-node>\n    </div>\n\n    <div ng-show=\"nodeDescriptionShown\" style=\"box-shadow: 0 5px 15px rgba(0,0,0,0.5);\" class=\"col-xs-7\">\n      <p ng-bind-html=\"renderedDescription\"></p>\n    </div>    \n  </div>\n  <span class=\"help-block\" sf-message=\"form.helpvalue\"></span>\n</div>");}]);
 angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTemplates', 'ngObiba'])
 .config(['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfBuilderProvider', 'sfPathProvider',
   function (schemaFormProvider, schemaFormDecoratorsProvider, sfBuilderProvider, sfPathProvider) {
@@ -28,7 +28,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     parentNode: '<',
     textFilter: '<',
     onToggleChildrenSelections: '&',
-    onToggleAttributes: '&'
+    onToggleDescription: '&'
   },
   templateUrl: 'src/templates/sf-obiba-selection-tree-node.html',
   controller: function () {
@@ -40,7 +40,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
         ctrl.currentNodePath = ctrl.node.path;
         ctrl.currentNodeTitle = ctrl.node.title || ctrl.node.path;
         ctrl.isLeaf = ctrl.node && (ctrl.node.type !== 'd' && (!Array.isArray(ctrl.node.nodes) || ctrl.node.nodes.length === 0));
-        ctrl.hasAttributes = ctrl.node && (Array.isArray(ctrl.node.attributes) && ctrl.node.attributes.length > 0);
+        ctrl.hasDescription = ctrl.node && ctrl.node.description;
       }
     }
 
@@ -52,8 +52,8 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       ctrl.onToggleChildrenSelections({selections: selections});
     }
 
-    function toggleAttributes(node) {
-      ctrl.onToggleAttributes({node: node});
+    function toggleDescription(node) {
+      ctrl.onToggleDescription({node: node});
     }
 
     function toggleNodeSelection(selectedNode) {
@@ -86,7 +86,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     ctrl.$onChanges = controllerOnChanges;
     ctrl.toggleNode = toggleNode;
     ctrl.toggleChildrenSelections = toggleChildrenSelections;
-    ctrl.toggleAttributes = toggleAttributes;
+    ctrl.toggleDescription = toggleDescription;
     ctrl.toggleNodeSelection = toggleNodeSelection;
   }
 })
@@ -116,34 +116,39 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       }
     }
 
-    function toggleNodeAttributes(node) {
-      if (!$scope.nodeAttributeShown || $scope.nodeAttributeShown !== node.path) {
-        $scope.nodeAttributeShown = node.path;
-        render(node.attributes);
+    function toggleNodeDescription(node) {
+      if (!$scope.nodeDescriptionShown || $scope.nodeDescriptionShown !== node.path) {
+        $scope.nodeDescriptionShown = node.path;
+        render(node.description);
       } else {
-        $scope.nodeAttributeShown = undefined;
-        $scope.renderedAttribute = '';
+        $scope.nodeDescriptionShown = undefined;
+        $scope.renderedDescription = '';
       }      
     }
 
-    function render(attributes) {
+    function render(lines) {
       var html = '';
-      attributes.forEach(function (attribute) {
+      var appendLineToHtml = function (line) {
         if (html.trim().length > 0) {
           html = html + '\n\n';
         }
 
-        html = html + (attribute.title && attribute.title.trim().length > 0 ? attribute.title + '\n\n' : '') + (attribute.body && attribute.body.trim().length > 0 ? attribute.body : '');
-      });
+        html = html + (line && line.trim().length > 0 ? line + '\n\n' : '');
+      };
 
-      $scope.renderedAttribute = marked(html);
+      if (Array.isArray(lines))
+        lines.forEach(appendLineToHtml);
+      else
+        appendLineToHtml(lines);
+
+      $scope.renderedDescription = marked(html);
     }
 
-    $scope.nodeAttributeShown = undefined;
-    $scope.renderedAttribute = '';
+    $scope.nodeDescriptionShown = undefined;
+    $scope.renderedDescription = '';
     $scope.selections = {};
     $scope.onSelectionUpdate = updateSelections;
-    $scope.toggleNodeAttributes = toggleNodeAttributes;
+    $scope.toggleNodeDescription = toggleNodeDescription;
   }
 ])
 .filter('treeFilter', function () {

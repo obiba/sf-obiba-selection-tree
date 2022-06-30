@@ -4,7 +4,7 @@
 (using [nvm](https://github.com/nvm-sh/nvm))
 
 ```
-nvm i lts/carbon
+nvm i lts/gallium
 npm i -g bower gulp
 npm i
 bower install
