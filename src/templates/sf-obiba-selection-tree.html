@@ -1,22 +1,17 @@
 <div
-  class="form-group"
+  class="form-group st-form-group"
   ng-class="{'has-error': form.disableErrorState !== true && hasError(), 'has-success': form.disableSuccessState !== true && hasSuccess(), 'has-feedback': form.feedback !== false }"
   ng-controller="sfObibaSelectionTreeController"
   schema-validate="form"
   sf-field-model>
   <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
 
-  <div class="row" ng-hide="form.schema.noFilter">
-    <div class="col-xs-4">
-      <div class="input-group">
+  <div class="row">
+    <div ng-class="{'col-xs-12': !nodeDescriptionShown, 'col-xs-5': nodeDescriptionShown}" class="st-tree">
+      <div class="input-group" ng-hide="form.schema.noFilter" style="max-width: 200px">
         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
         <input type="text" class="form-control" ng-model="text">
       </div>
-    </div>        
-  </div>
-
-  <div class="row">
-    <div ng-class="{'col-xs-12': !nodeDescriptionShown, 'col-xs-5': nodeDescriptionShown}">
       <sf-obiba-selection-tree-node
         ng-repeat="node in form.schema.nodes | treeFilter:text"
         node="node"
@@ -28,8 +23,8 @@
       </sf-obiba-selection-tree-node>
     </div>
 
-    <div ng-show="nodeDescriptionShown" style="box-shadow: 0 5px 15px rgba(0,0,0,0.5);" class="col-xs-7">
-      <p ng-bind-html="renderedDescription"></p>
+    <div ng-show="nodeDescriptionShown" class="col-xs-7 st-description">
+      <div ng-bind-html="renderedDescription"></div>
     </div>    
   </div>
   <span class="help-block" sf-message="form.helpvalue"></span>

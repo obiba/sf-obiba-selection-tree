@@ -128,10 +128,10 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       var html = '';
       var appendLineToHtml = function (line) {
         if (html.trim().length > 0) {
-          html = html + '\n\n';
+          html = html + '\n';
         }
 
-        html = html + (line && line.trim().length > 0 ? line + '\n\n' : '');
+        html = html + (line && line.trim().length > 0 ? line + '\n' : '');
       };
 
       if (Array.isArray(lines))
