@@ -137,14 +137,18 @@
                 "noFilter": false,
                 "items": { "type": "string" },
                 "nodes": nodes
-              }             
+              }
             },
             "required": []
           };
           $scope.form = [
             "documents"
           ];
-          $scope.model = {};
+          $scope.model = {
+            documents: [
+              "aaa/item1"
+            ]
+          };
           $scope.sfOptions = {formDefaults: { readonly: false, languages: {en: 'English', fr: 'French'} }};
         }
       ]);

@@ -91,6 +91,19 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
 .controller('sfObibaSelectionTreeController', ['$scope', 'marked',
   function ($scope, marked) {
 
+    function init() {
+      var val = [];
+      $scope.form.key.forEach(function (key) {
+        val = $scope.model[key];
+      });
+
+      if (Array.isArray(val)) {
+        val.map(function (value) {
+          $scope.selections[value] = true;
+        });
+      }
+    }
+
     function updateModel(selected) {
       var endOfPath = $scope.form.key.reduce(function (prev, curr) {
         prev = prev ? prev : $scope.model;
@@ -121,7 +134,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       } else {
         $scope.nodeDescriptionShown = undefined;
         $scope.renderedDescription = '';
-      }      
+      }
     }
 
     function render(lines) {
@@ -147,6 +160,10 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     $scope.selections = {};
     $scope.onSelectionUpdate = updateSelections;
     $scope.toggleNodeDescription = toggleNodeDescription;
+
+    $scope.$watch('form', function () {
+      init();
+    });
   }
 ])
 .filter('treeFilter', function () {
@@ -160,11 +177,11 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
 
   return function (nodes, text) {
     var lowercaseText = (text || "").trim().toLowerCase();
-    
+
     if (lowercaseText.length === 0) {
       return nodes;
     }
-    
+
     return (nodes || []).filter(function (node) {
       return nodehasText(node, lowercaseText);
     });
