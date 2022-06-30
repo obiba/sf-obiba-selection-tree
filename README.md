@@ -25,8 +25,4 @@ node
 - *path* is a string and is REQUIRED. Will be used if no title is set.
 - *type* is a string (either `f` or `d` for "leaf" and "branch" respectively. If omitted, will be treated as `f`.).
 - *nodes* is an array of objects (a sub-tree).
-- *attributes* is an array of objects. Should work as description and will be rendered with markdown.
-
-attribute
-- *title* first item to be rendered. Can be left blank.
-- *body*
+- *description* is a string or an array of strings (to represent multiple lines). Should work as the node's description and will be rendered with markdown.
