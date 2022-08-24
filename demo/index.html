@@ -32,20 +32,13 @@
   <script src="../bower_components/angular-schema-form/dist/schema-form.js"></script>
   <script src="../bower_components/angular-schema-form-bootstrap/bootstrap-decorator.js"></script>
   <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
-  <script src="../bower_components/angular-translate/angular-translate.js"></script>
   <script src="../bower_components/marked/lib/marked.js"></script>
   <script src="../bower_components/angular-marked/dist/angular-marked.js"></script>
-  <script src="../bower_components/moment/moment.js"></script>
-  <script src="../bower_components/moment/min/locales.js"></script>
-  <script src="../bower_components/angular-moment/angular-moment.js"></script>
-  <script src="../bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
-  <script src="../bower_components/ng-obiba/dist/ng-obiba.js"></script>
 
   <script src="../dist/sf-obiba-selection-tree.js"></script>
   <script>
     (function () {
-      angular.module('test', ["schemaForm","sfObibaSelectionTree"])
+      angular.module('test', ["schemaForm","hc.marked","sfObibaSelectionTree"])
       .controller('FormController', ['$scope',
         function($scope) {
           const nodes = [

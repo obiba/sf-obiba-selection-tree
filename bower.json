@@ -21,12 +21,12 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "ng-obiba": "https://github.com/obiba/ng-obiba.git#2.0.2"
-  },
   "devDependencies": {
+    "angular": "1.6.9",
+    "angular-sanitize": "1.6.9",
     "angular-schema-form": "^0.8.13",
     "angular-schema-form-bootstrap": "https://github.com/obiba/angular-schema-form-bootstrap.git#1.1.4",
+    "angular-marked": "^1.2.2",
     "bootstrap": "^3.3.7",
     "angular-bootstrap": "^2.5.0"
   }
