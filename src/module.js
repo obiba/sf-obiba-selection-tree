@@ -73,8 +73,9 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
           var numberOfChildrenSelected = ctrl.parentNode.nodes.filter(function (node) {
             return ctrl.selections[node.path];
           }).length;
-
+          // select parent node when all children are selected
           ctrl.selections[ctrl.parentNode.path] = numberOfChildrenSelected === ctrl.parentNode.nodes.length;
+          // TODO propagate to parent of parent
         }
 
         ctrl.toggleChildrenSelections(ctrl.selections);
@@ -186,4 +187,51 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       return nodehasText(node, lowercaseText);
     });
   }
-});
+})
+.directive('indeterminate', [function() {
+  return {
+     require: '?ngModel',
+     link: function(scope, el, attrs, ctrl) {
+        var isIndeterminate = function(node) {
+          if (!node.nodes) {
+            return false;
+          }
+          var selections = scope.$ctrl.selections;
+          var numberOfChildrenSelected = node.nodes.filter(function (child) {
+            return selections[child.path];
+          }).length;
+          var numberOfChildren = node.nodes.length;
+          if (numberOfChildrenSelected === 0 && numberOfChildren > 0) {
+            // one of the children may be indeterminate in which case the parent (=current) will be indterminate
+            var childIndeterminate = node.nodes.map(function (child) {
+              return isIndeterminate(child);
+            }).filter(function (val) {
+              return val;
+            }).pop();
+            return childIndeterminate === true;
+          }
+          return numberOfChildrenSelected > 0 && numberOfChildrenSelected < numberOfChildren;
+        };
+
+        ctrl.$formatters = [];
+        ctrl.$parsers = [];
+        ctrl.$render = function() {
+          var d = ctrl.$viewValue;
+          el.data('checked', d);
+
+          if (d) {
+            el.prop('indeterminate', false);
+            el.prop('checked', true);
+          } else {
+            el.prop('indeterminate', isIndeterminate(scope.$ctrl.currentNode));
+            el.prop('checked', false);
+          }
+        };
+        el.bind('click', function() {
+           var d = el.data('checked') ? false : true;
+           ctrl.$setViewValue(d);
+           scope.$apply(ctrl.$render);
+        });
+     }
+  };
+}]);
