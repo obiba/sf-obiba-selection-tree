@@ -49,6 +49,13 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     }
 
     function toggleChildrenSelections(selections) {
+      // for consistency, verify selected vs. all children selected
+      if (!ctrl.isLeaf && Array.isArray(ctrl.currentNode.nodes)) {
+        var numberOfChildrenSelected = ctrl.currentNode.nodes.filter(function (node) {
+          return selections[node.path];
+        }).length;
+        selections[ctrl.currentNode.path] = numberOfChildrenSelected === ctrl.currentNode.nodes.length;
+      }
       ctrl.onToggleChildrenSelections({selections: selections});
     }
 
@@ -70,16 +77,6 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
             toggleNodeSelection(node);
           });
         }
-
-        if (ctrl.parentNode && Array.isArray(ctrl.parentNode.nodes)) {
-          var numberOfChildrenSelected = ctrl.parentNode.nodes.filter(function (node) {
-            return ctrl.selections[node.path];
-          }).length;
-          // select parent node when all children are selected
-          ctrl.selections[ctrl.parentNode.path] = numberOfChildrenSelected === ctrl.parentNode.nodes.length;
-          // TODO propagate to parent of parent
-        }
-
         ctrl.toggleChildrenSelections(ctrl.selections);
       }
     }
@@ -107,26 +104,13 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       }
     }
 
-    function updateModel(selected) {
-      var endOfPath = $scope.form.key.reduce(function (prev, curr) {
-        prev = prev ? prev : $scope.model;
-        return prev[curr];
-      });
-
-      endOfPath = selected;
-    }
-
     function updateSelections() {
       var selectionsKeys = Object.keys($scope.selections);
       if (selectionsKeys && selectionsKeys.length > 0) {
-        updateModel([]);
-
         var selected = selectionsKeys.filter(function (selectionKey) {
           return $scope.selections[selectionKey];
         });
-
         $scope.ngModel.$setViewValue(selected);
-        updateModel(selected);
       }
     }
 
