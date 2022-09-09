@@ -63,6 +63,11 @@
                       "path": "aaa/aaaaaa/item2",
                       "title": "Item A2",
                       "nodes": []
+                    },
+                    {
+                      "path": "aaa/aaaaaa/item3",
+                      "title": "Item A3",
+                      "nodes": []
                     }
                   ],
                   "description": [
@@ -114,8 +119,24 @@
               ]
             },
             {
+              "path": "ddd",
+              "title": "DDD Dir",
+              "nodes": [
+                {
+                  "path": "ddd/item1",
+                  "title": "Item D1",
+                  "nodes": []
+                }
+              ]
+            },
+            {
               "path": "item1",
               "title": "Item 1",
+              "nodes": []
+            },
+            {
+              "path": "item2",
+              "title": "Item 2",
               "nodes": []
             }
           ];
@@ -139,7 +160,11 @@
           ];
           $scope.model = {
             documents: [
-              "aaa/item1"
+              "bbb/item1",
+              "aaa/aaaaaa/item2",
+              "ddd",
+              "ddd/item1",
+              "item1"
             ]
           };
           $scope.sfOptions = {formDefaults: { readonly: false, languages: {en: 'English', fr: 'French'} }};
