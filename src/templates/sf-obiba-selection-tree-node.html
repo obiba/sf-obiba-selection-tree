@@ -4,7 +4,7 @@
     <div ng-show="$ctrl.isLeaf" style="width: 1em;"></div>
   </button>
 
-  <input ng-show="!$ctrl.readonly" type="checkbox" name="{{$ctrl.currentNodePath}}" indeterminate ng-model="$ctrl.selections[$ctrl.currentNodePath]" ng-change="$ctrl.toggleNodeSelection()">
+  <input ng-disabled="$ctrl.readonly" type="checkbox" name="{{$ctrl.currentNodePath}}" indeterminate ng-model="$ctrl.selections[$ctrl.currentNodePath]" ng-change="$ctrl.toggleNodeSelection()">
 
   <span style="margin-left: 1em;">
     <i class="glyphicon" ng-class="{'glyphicon-folder-open': !$ctrl.isLeaf, 'glyphicon-file': $ctrl.isLeaf}" style="margin-right: 0.5em;"></i>
