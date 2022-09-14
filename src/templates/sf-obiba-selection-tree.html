@@ -7,7 +7,7 @@
   <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
 
   <div class="row">
-    <div ng-class="{'col-xs-12': !nodeDescriptionShown, 'col-xs-5': nodeDescriptionShown}" class="st-tree">
+    <div ng-class="{'col-12 col-xs-12': !nodeDescriptionShown, 'col-5 col-xs-5': nodeDescriptionShown}" class="st-tree">
       <div class="input-group" ng-hide="form.schema.noFilter" style="max-width: 200px">
         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
         <input type="text" class="form-control" ng-model="text">
@@ -23,7 +23,7 @@
       </sf-obiba-selection-tree-node>
     </div>
 
-    <div ng-show="nodeDescriptionShown" class="col-xs-7 st-description">
+    <div ng-show="nodeDescriptionShown" class="col-7 col-xs-7 st-description">
       <div ng-bind-html="renderedDescription"></div>
     </div>    
   </div>
