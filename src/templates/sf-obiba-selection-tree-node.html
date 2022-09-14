@@ -12,7 +12,7 @@
     <button ng-show="$ctrl.hasDescription" ng-click="$ctrl.toggleDescription($ctrl.currentNode)" class="btn btn-link" type="button">{{$ctrl.currentNodeTitle}}</button>
   </span>
 
-  <div ng-show="!$ctrl.isLeaf && $ctrl.isOpen" class="row" style="margin-left: 1.25em;">
+  <div ng-show="!$ctrl.isLeaf && $ctrl.isOpen" style="margin-left: 1.25em;">
     <sf-obiba-selection-tree-node
       ng-repeat="node in $ctrl.currentNode.nodes | treeFilter:$ctrl.textFilter"
       node="node"
