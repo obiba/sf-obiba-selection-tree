@@ -3,17 +3,19 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
   function (schemaFormProvider, schemaFormDecoratorsProvider, sfBuilderProvider, sfPathProvider) {
 
     function obibaSelectionTree(name, schema, options) {
-      if (schema.type === 'array' && schema.format === 'obibaSelectionTree') {
+      if ((schema.type === 'array' || schema.type === 'string') && schema.format === 'obibaSelectionTree') {
         var f = schemaFormProvider.stdFormObj(name, schema, options);
         f.key = options.path;
         f.type = 'obibaSelectionTree';
-        f.multiple = 'multiple';
+        if (schema.type === 'array')
+          f.multiple = 'multiple';
         options.lookup[sfPathProvider.stringify(options.path)] = f;
         return f;
       }
     }
 
     schemaFormProvider.defaults.array.unshift(obibaSelectionTree);
+    schemaFormProvider.defaults.string.unshift(obibaSelectionTree);
 
     schemaFormDecoratorsProvider.defineAddOn('bootstrapDecorator', 'obibaSelectionTree', 'src/templates/sf-obiba-selection-tree.html', sfBuilderProvider.stdBuilders);
   }
@@ -23,6 +25,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     node: '<',
     selections: '<',
     readonly: '<',
+    single: '<',
     parentNode: '<',
     textFilter: '<',
     onToggleChildrenSelections: '&',
@@ -75,7 +78,16 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
             toggleNodeSelection(node);
           });
         }
-        ctrl.toggleChildrenSelections(ctrl.selections);
+        if (ctrl.single) {
+          const keys = Object.keys(ctrl.selections)
+          keys.forEach(function(k) {
+            if (k !== ctrl.currentNodePath) {
+              delete ctrl.selections[k]
+            } 
+          })
+          ctrl.onToggleChildrenSelections({selections: ctrl.selections});
+        } else
+          ctrl.toggleChildrenSelections(ctrl.selections);
       }
     }
 
@@ -100,6 +112,9 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
           $scope.selections[value] = true;
         });
       }
+
+      $scope.isSingle = $scope.form.schema.type === 'string';
+      $scope.showTree = !$scope.isSingle;
     }
 
     function updateSelections() {
@@ -108,7 +123,16 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
         var selected = selectionsKeys.filter(function (selectionKey) {
           return $scope.selections[selectionKey];
         });
-        $scope.ngModel.$setViewValue(selected);
+        if ($scope.form.schema.type === 'string') {
+          if (selected.length === 0) {
+            $scope.ngModel.$setViewValue(undefined);  
+          } else {
+            $scope.ngModel.$setViewValue(selected.pop());
+          }
+        } else {
+          $scope.ngModel.$setViewValue(selected);
+        }
+        
       }
     }
 
@@ -140,11 +164,17 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       $scope.renderedDescription = marked(html);
     }
 
+    function toggleShowTree() {
+      $scope.showTree = !$scope.showTree;  
+    }
+
     $scope.nodeDescriptionShown = undefined;
     $scope.renderedDescription = '';
     $scope.selections = {};
     $scope.onSelectionUpdate = updateSelections;
     $scope.toggleNodeDescription = toggleNodeDescription;
+    $scope.showTree = false;
+    $scope.toggleShowTree = toggleShowTree;
 
     $scope.$watch('form', function () {
       init();

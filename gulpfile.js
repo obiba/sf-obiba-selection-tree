@@ -37,7 +37,7 @@ gulp.task('watch', function () {
   gulp.watch(['./src/**', './demo/**'], ['reload']);
 });
 
-gulp.task('minify', function () {
+gulp.task('minify', ['css'], function () {
   var files = JSON.parse(fs.readFileSync('sources.json', 'utf-8'));
   var stream = streamqueue({ objectMode: true },
     gulp.src(['src/templates/**/*.html']).pipe(templateCache({
@@ -54,4 +54,8 @@ gulp.task('minify', function () {
   .pipe(gulp.dest('./dist'));
 
   return stream;
+});
+
+gulp.task('css', function () {
+  gulp.src('./src/css/*.css').pipe(gulp.dest('./dist'));
 });

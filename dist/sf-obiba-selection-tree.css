@@ -1,0 +1,65 @@
+.st-tree {
+  /*border: solid 1px #ddd;*/
+  clear: both;
+}
+
+.st-description {
+  border: solid 1px #ddd;
+  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  overflow: scroll;
+}
+
+.st-head {
+  margin-bottom: 10px;
+}
+
+.st-selection {
+  font-weight: bold;
+}
+
+.st-no-selection {
+  color: #6c757d;
+}
+
+.st-selector {
+  margin-left: 10px;
+}
+
+.st-card-string {
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+.st-card-string .st-card-header {
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.st-card-string .st-card-header i {
+  color: #6c757d;
+  font-size: x-large;
+  float: right;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+.st-card-string .row {
+  position: absolute;
+  margin: 20px;
+  width: 90%;
+  height: 90%;
+  transform: translate(5%,5%);
+  -ms-transform: translate(5%,5%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: #6c757d solid 2px;
+  z-index: 10;
+}

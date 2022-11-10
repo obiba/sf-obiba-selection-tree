@@ -4,9 +4,14 @@
     <div ng-show="$ctrl.isLeaf" style="width: 1em;"></div>
   </button>
 
-  <input ng-disabled="$ctrl.readonly" type="checkbox" name="{{$ctrl.currentNodePath}}" indeterminate ng-model="$ctrl.selections[$ctrl.currentNodePath]" ng-change="$ctrl.toggleNodeSelection()">
+  <input type="checkbox" name="{{$ctrl.currentNodePath}}" indeterminate 
+    ng-show="$ctrl.isLeaf || !$ctrl.single" 
+    ng-disabled="$ctrl.readonly" 
+    ng-model="$ctrl.selections[$ctrl.currentNodePath]" 
+    ng-change="$ctrl.toggleNodeSelection()"
+    style="margin-right: 1em;">
 
-  <span style="margin-left: 1em;">
+  <span>
     <i class="glyphicon" ng-class="{'glyphicon-folder-open': !$ctrl.isLeaf, 'glyphicon-file': $ctrl.isLeaf}" style="margin-right: 0.5em;"></i>
     <span ng-show="!$ctrl.hasDescription">{{$ctrl.currentNodeTitle}}</span>
     <button ng-show="$ctrl.hasDescription" ng-click="$ctrl.toggleDescription($ctrl.currentNode)" class="btn btn-link" type="button">{{$ctrl.currentNodeTitle}}</button>
@@ -18,6 +23,7 @@
       node="node"
       selections="$ctrl.selections"
       text-filter="$ctrl.textFilter"
+      single="$ctrl.single"
       parent-node="$ctrl.currentNode"
       on-toggle-children-selections="$ctrl.toggleChildrenSelections(selections)"
       on-toggle-description="$ctrl.toggleDescription(node)"

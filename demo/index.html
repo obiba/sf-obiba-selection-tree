@@ -7,7 +7,7 @@
   <title>sfObibaSelectionTree</title>
 
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="../dist/sf-obiba-selection-tree.css">
 </head>
 <body ng-app="test">
   <div class="container-fluid" ng-controller="FormController">
@@ -46,28 +46,36 @@
               "path": "aaa",
               "title": "AAA Dir",
               "description": "Hey, I am the parent!",
-              "type": "d",
               "nodes": [
                 {
                   "path": "aaa/item1",
-                  "title": "Item A1",
-                  "type": "f",
-                  "nodes": []
+                  "title": "Item A1"
                 },
                 {
                   "path": "aaa/aaaaaa",
                   "title": "Child Dir of AAA",
-                  "type": "d",
                   "nodes": [
                     {
                       "path": "aaa/aaaaaa/item2",
                       "title": "Item A2",
-                      "nodes": []
+                      "nodes": [
+                        {
+                          "path": "aaa/aaaaaa/item2/item1",
+                          "title": "Item 1"
+                        },
+                        {
+                          "path": "aaa/aaaaaa/item2/item2",
+                          "title": "Item 2"
+                        },
+                        {
+                          "path": "aaa/aaaaaa/item2/item3",
+                          "title": "Item 3"
+                        }
+                      ]
                     },
                     {
                       "path": "aaa/aaaaaa/item3",
-                      "title": "Item A3",
-                      "nodes": []
+                      "title": "Item A3"
                     }
                   ],
                   "description": [
@@ -88,13 +96,10 @@
             {
               "path": "bbb",
               "title": "BBB Dir",
-              "type": "d",
               "nodes": [
                 {
                   "path": "bbb/item1",
-                  "title": "Item B1",
-                  "type": "f",
-                  "nodes": []
+                  "title": "Item B1"
                 },
                 {
                   "path": "bbb/item2",
@@ -102,8 +107,7 @@
                 },
                 {
                   "path": "bbb/item3",
-                  "title": "Item B3",
-                  "type": "f"
+                  "title": "Item B3"
                 }
               ]
             },
@@ -113,8 +117,7 @@
               "nodes": [
                 {
                   "path": "ccc/item1",
-                  "title": "Item C1",
-                  "nodes": []
+                  "title": "Item C1"
                 }
               ]
             },
@@ -124,20 +127,17 @@
               "nodes": [
                 {
                   "path": "ddd/item1",
-                  "title": "Item D1",
-                  "nodes": []
+                  "title": "Item D1"
                 }
               ]
             },
             {
               "path": "item1",
-              "title": "Item 1",
-              "nodes": []
+              "title": "Item 1"
             },
             {
               "path": "item2",
-              "title": "Item 2",
-              "nodes": []
+              "title": "Item 2"
             }
           ];
 
@@ -147,16 +147,27 @@
               "documents": {
                 "type": "array",
                 "format": "obibaSelectionTree",
-                "title": "Document Tree Example",
+                "title": "Documents Tree - Multi Selections",
                 "noFilter": false,
                 "items": { "type": "string" },
                 "nodes": nodes
+              },
+              "document": {
+                "type": "string",
+                "format": "obibaSelectionTree",
+                "title": "Document Tree - Single Selection",
+                "noFilter": false,
+                "items": { "type": "string" },
+                "nodes": nodes,
+                "description": "Select one item in the tree.",
+                "noSelection": "No selection"
               }
             },
             "required": []
           };
           $scope.form = [
-            "documents"
+            "documents",
+            "document"
           ];
           $scope.model = {
             documents: [

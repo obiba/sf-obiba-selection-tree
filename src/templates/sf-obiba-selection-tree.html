@@ -6,26 +6,41 @@
   sf-field-model>
   <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
 
-  <div class="row">
-    <div ng-class="{'col-12 col-xs-12': !nodeDescriptionShown, 'col-5 col-xs-5': nodeDescriptionShown}" class="st-tree">
-      <div class="input-group" ng-hide="form.schema.noFilter" style="max-width: 200px">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-        <input type="text" class="form-control" ng-model="text">
-      </div>
-      <sf-obiba-selection-tree-node
-        ng-repeat="node in form.schema.nodes | treeFilter:text"
-        node="node"
-        selections="selections"
-        text-filter="text"
-        on-toggle-children-selections="onSelectionUpdate(selections)"
-        on-toggle-description="toggleNodeDescription(node)"
-        readonly="form.readonly">
-      </sf-obiba-selection-tree-node>
-    </div>
-
-    <div ng-show="nodeDescriptionShown" class="col-7 col-xs-7 st-description">
-      <div ng-bind-html="renderedDescription"></div>
-    </div>    
+  <div ng-if="isSingle" class="st-head">
+    <span ng-show="model[form.key]" class="st-selection">{{ model[form.key] }}</span>
+    <span ng-hide="model[form.key]" class="st-no-selection">{{ form.schema.noSelectionMessage || 'No selection' }}</span>
+    <a href="#" class="st-selector btn btn-sm btn-default" ng-click="toggleShowTree()">{{ form.schema.selectMessage || 'Select' }}</a>
   </div>
-  <span class="help-block" sf-message="form.helpvalue"></span>
+
+  <div ng-show="!isSingle || showTree" ng-class="'st-card-' + form.schema.type">
+
+    <div class="row" >
+      <div ng-if="isSingle" ng-click="toggleShowTree()" class="st-card-header">
+        <i class="glyphicon glyphicon-remove"></i>
+      </div>
+      <div ng-class="{'col-12 col-xs-12': !nodeDescriptionShown, 'col-5 col-xs-5': nodeDescriptionShown}" class="st-tree">
+        <div class="input-group" ng-hide="form.schema.noFilter" style="max-width: 200px">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+          <input type="text" class="form-control" ng-model="text">
+        </div>
+        <sf-obiba-selection-tree-node
+          ng-repeat="node in form.schema.nodes | treeFilter:text"
+          node="node"
+          selections="selections"
+          text-filter="text"
+          single="isSingle"
+          on-toggle-children-selections="onSelectionUpdate(selections)"
+          on-toggle-description="toggleNodeDescription(node)"
+          readonly="form.readonly">
+        </sf-obiba-selection-tree-node>
+      </div>
+  
+      <div ng-show="nodeDescriptionShown" class="col-7 col-xs-7 st-description">
+        <div ng-bind-html="renderedDescription"></div>
+      </div>    
+    </div>
+  </div>
+  
+  
+  <span class="help-block" sf-message="form.helpvalue || form.description"></span>
 </div>
