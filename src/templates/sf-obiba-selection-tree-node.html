@@ -5,8 +5,7 @@
   </button>
 
   <input type="checkbox" name="{{$ctrl.currentNodePath}}" indeterminate 
-    ng-if="$ctrl.isLeaf || !$ctrl.single" 
-    ng-disabled="$ctrl.readonly" 
+    ng-disabled="$ctrl.readonly || (!$ctrl.isLeaf && $ctrl.single)" 
     ng-model="$ctrl.selections[$ctrl.currentNodePath]" 
     ng-change="$ctrl.toggleNodeSelection()"
     style="margin-right: 1em;">

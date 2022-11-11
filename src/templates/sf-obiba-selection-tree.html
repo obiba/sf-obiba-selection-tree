@@ -7,7 +7,7 @@
   <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
 
   <div ng-if="isSingle" class="st-head">
-    <span ng-class="selectedValue ? 'st-selection' : 'st-no-selection' ">{{ selectedValue || form.schema.noSelectionLabel || 'No selection' }}</span>
+    <span ng-class="ngModel.$modelValue ? 'st-selection' : 'st-no-selection' ">{{ ngModel.$modelValue || form.schema.noSelectionLabel || 'No selection' }}</span>
     <button ng-if="!form.readonly" ng-click="toggleShowTree()" class="st-selector btn btn-sm btn-default" type="button">{{ form.schema.selectLabel || 'Select' }}</button>
   </div>
 

@@ -192,12 +192,20 @@
           $scope.model = {
             documents: [
               "bbb/item1",
-              "aaa/aaaaaa/item2",
+              "aaa/aaaaaa/item2/item1",
               "ddd",
               "ddd/item1",
               "item1"
             ],
-            document: "bbb/item1"
+            document: "bbb/item1",
+            documentNames: [
+              {
+                documentName: "aaa/aaaaaa/item3"
+              },
+              {
+                "documentName": "item2"
+              }
+            ]
           };
           $scope.sfOptions = {formDefaults: { readonly: false, languages: {en: 'English', fr: 'French'} }};
         }

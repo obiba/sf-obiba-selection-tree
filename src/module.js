@@ -102,20 +102,15 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
   function ($scope, marked) {
 
     function init() {
-      var val = [];
-      $scope.form.key.forEach(function (key) {
-        val = $scope.model[key];
-      });
-
+      var val = $scope.ngModel.$modelValue;
+      
       if (Array.isArray(val)) {
         val.map(function (value) {
           $scope.selections[value] = true;
         });
+      } else if (typeof val === 'string') {
+        $scope.selections[val] = true;
       }
-
-      $scope.isSingle = $scope.form.schema.type === 'string';
-      $scope.showTree = !$scope.isSingle;
-      $scope.selectedValue = val;
     }
 
     function updateSelections() {
@@ -124,16 +119,17 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
         var selected = selectionsKeys.filter(function (selectionKey) {
           return $scope.selections[selectionKey];
         });
+        var selectedValue;
         if ($scope.form.schema.type === 'string') {
           if (selected.length === 0) {
-            $scope.selectedValue = undefined;  
+            selectedValue = undefined;  
           } else {
-            $scope.selectedValue = selected.pop();
+            selectedValue = selected.pop();
           }
         } else {
-          $scope.selectedValue = selected;
+          selectedValue = selected;
         }
-        $scope.ngModel.$setViewValue($scope.selectedValue);
+        $scope.ngModel.$setViewValue(selectedValue);
       }
     }
 
@@ -176,9 +172,14 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     $scope.toggleNodeDescription = toggleNodeDescription;
     $scope.showTree = false;
     $scope.toggleShowTree = toggleShowTree;
-    $scope.selectedValue = undefined;
+    $scope.initialized = false;
 
     $scope.$watch('form', function () {
+      $scope.isSingle = $scope.form.schema.type === 'string';
+      $scope.showTree = !$scope.isSingle;
+    });
+
+    $scope.$watch('ngModel.$modelValue', function () {
       init();
     });
   }
