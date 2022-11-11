@@ -20,8 +20,9 @@ schema
 - *items* MUST be `{ "type": "string" }` and is REQUIRED.
 - *nodes* is the array of objects that will be rendered and is REQUIRED.
 - *description* or *helpvalue* to display a help text.
-- *selectMessage* is the text in the select button (single selection only).
-- *noSelectionMessage* is the text to display when there is no selection (single selection only).
+- *selectLabel* is the text in the select button (single selection only).
+- *noSelectionLabel* is the text to display when there is no selection (single selection only).
+- *selectionTipLabel* is the text to display on top left of the selection tree (single selection only).
  
 node
 - *title* is a string

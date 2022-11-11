@@ -7,19 +7,19 @@
   <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
 
   <div ng-if="isSingle" class="st-head">
-    <span ng-show="model[form.key]" class="st-selection">{{ model[form.key] }}</span>
-    <span ng-hide="model[form.key]" class="st-no-selection">{{ form.schema.noSelectionMessage || 'No selection' }}</span>
-    <a href="#" class="st-selector btn btn-sm btn-default" ng-click="toggleShowTree()">{{ form.schema.selectMessage || 'Select' }}</a>
+    <span ng-class="selectedValue ? 'st-selection' : 'st-no-selection' ">{{ selectedValue || form.schema.noSelectionLabel || 'No selection' }}</span>
+    <button ng-click="toggleShowTree()" class="st-selector btn btn-sm btn-default" type="button">{{ form.schema.selectLabel || 'Select' }}</button>
   </div>
 
   <div ng-show="!isSingle || showTree" ng-class="'st-card-' + form.schema.type">
 
-    <div class="row" >
-      <div ng-if="isSingle" ng-click="toggleShowTree()" class="st-card-header">
-        <i class="glyphicon glyphicon-remove"></i>
+    <div class="row st-card-section">
+      <div ng-if="isSingle" ng-click="toggleShowTree()" class="col-xs-12 st-card-header">
+        <span>{{ form.schema.selectionTipLabel || '' }}</span>
+        <i class="glyphicon glyphicon-remove st-close"></i>
       </div>
-      <div ng-class="{'col-12 col-xs-12': !nodeDescriptionShown, 'col-5 col-xs-5': nodeDescriptionShown}" class="st-tree">
-        <div class="input-group" ng-hide="form.schema.noFilter" style="max-width: 200px">
+      <div ng-class="{'col-xs-12': !nodeDescriptionShown, 'col-xs-5': nodeDescriptionShown}" class="st-card-body">
+        <div class="input-group" ng-hide="form.schema.noFilter" style="max-width: 200px" class="st-filter">
           <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
           <input type="text" class="form-control" ng-model="text">
         </div>
@@ -31,12 +31,13 @@
           single="isSingle"
           on-toggle-children-selections="onSelectionUpdate(selections)"
           on-toggle-description="toggleNodeDescription(node)"
-          readonly="form.readonly">
+          readonly="form.readonly"
+          class="st-tree">
         </sf-obiba-selection-tree-node>
       </div>
   
-      <div ng-show="nodeDescriptionShown" class="col-7 col-xs-7 st-description">
-        <div ng-bind-html="renderedDescription"></div>
+      <div ng-show="nodeDescriptionShown" class="col-xs-7">
+        <div ng-bind-html="renderedDescription" class="st-description"></div>
       </div>    
     </div>
   </div>

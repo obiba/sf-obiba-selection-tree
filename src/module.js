@@ -125,14 +125,14 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
         });
         if ($scope.form.schema.type === 'string') {
           if (selected.length === 0) {
-            $scope.ngModel.$setViewValue(undefined);  
+            $scope.selectedValue = undefined;  
           } else {
-            $scope.ngModel.$setViewValue(selected.pop());
+            $scope.selectedValue = selected.pop();
           }
         } else {
-          $scope.ngModel.$setViewValue(selected);
+          $scope.selectedValue = selected;
         }
-        
+        $scope.ngModel.$setViewValue($scope.selectedValue);
       }
     }
 
@@ -175,6 +175,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     $scope.toggleNodeDescription = toggleNodeDescription;
     $scope.showTree = false;
     $scope.toggleShowTree = toggleShowTree;
+    $scope.selectedValue = undefined;
 
     $scope.$watch('form', function () {
       init();

@@ -160,14 +160,34 @@
                 "items": { "type": "string" },
                 "nodes": nodes,
                 "description": "Select one item in the tree.",
-                "noSelection": "No selection"
+                "noSelectionLabel": "No selection",
+                "selectionTipLabel": "Select an item in the tree (click me to close)"
+              },
+              "documentNames": {
+                "type": "array",
+                "maxItems": 10,
+                "title": "Document Tree - Single Selection in a array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "documentName": {
+                      "type": "string",
+                      "format": "obibaSelectionTree",
+                      "title": "Name",
+                      "noFilter": false,
+                      "items": { "type": "string" },
+                      "nodes": nodes
+                    }
+                  }
+                }
               }
             },
             "required": []
           };
           $scope.form = [
             "documents",
-            "document"
+            "document",
+            "documentNames"
           ];
           $scope.model = {
             documents: [
