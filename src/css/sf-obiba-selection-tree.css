@@ -50,7 +50,6 @@
   border: solid 1px #ddd;
   padding: 15px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-  overflow: scroll;
 }
 
 .st-head {
