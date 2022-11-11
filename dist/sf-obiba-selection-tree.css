@@ -38,6 +38,7 @@
   border-radius: 10px;
   border: #6c757d solid 2px;
   z-index: 10000;
+  overflow: auto;
 }
 
 .st-card-body {

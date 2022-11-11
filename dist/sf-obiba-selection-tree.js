@@ -117,7 +117,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
 
       $scope.isSingle = $scope.form.schema.type === 'string';
       $scope.showTree = !$scope.isSingle;
-      $scope.selectedValue = val && $scope.isSingle ? val.pop() : val;
+      $scope.selectedValue = val;
     }
 
     function updateSelections() {
