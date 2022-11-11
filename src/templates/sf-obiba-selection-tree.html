@@ -14,11 +14,11 @@
   <div ng-show="!isSingle || showTree" ng-class="'st-card-' + form.schema.type">
 
     <div class="row st-card-section">
-      <div ng-if="isSingle" ng-click="toggleShowTree()" class="col-xs-12 st-card-header">
+      <div ng-if="isSingle" ng-click="toggleShowTree()" class="col-12 col-xs-12 st-card-header">
         <span>{{ form.schema.selectionTipLabel || '' }}</span>
         <i class="glyphicon glyphicon-remove st-close"></i>
       </div>
-      <div ng-class="{'col-xs-12': !nodeDescriptionShown, 'col-xs-5': nodeDescriptionShown}" class="st-card-body">
+      <div ng-class="{'col-12 col-xs-12': !nodeDescriptionShown, 'col-5 col-xs-5': nodeDescriptionShown}" class="st-card-body">
         <div class="input-group" ng-hide="form.schema.noFilter" style="max-width: 200px" class="st-filter">
           <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
           <input type="text" class="form-control" ng-model="text">
@@ -36,7 +36,7 @@
         </sf-obiba-selection-tree-node>
       </div>
   
-      <div ng-show="nodeDescriptionShown" class="col-xs-7">
+      <div ng-show="nodeDescriptionShown" class="col-7 col-xs-7">
         <div ng-bind-html="renderedDescription" class="st-description"></div>
       </div>    
     </div>
