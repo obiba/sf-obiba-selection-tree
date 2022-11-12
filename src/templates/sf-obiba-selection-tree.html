@@ -13,40 +13,42 @@
 
   <div ng-show="!isSingle || showTree" ng-class="'st-card-' + form.schema.type">
 
-    <div class="row st-card-section">
-      <div ng-if="isSingle" ng-click="toggleShowTree()" class="col-12 col-xs-12 st-card-header">
+    <div class="st-card-section">
+      <div ng-if="isSingle" ng-click="toggleShowTree()" class="st-card-header">
         <span>{{ ngModel.$modelValue || form.schema.noSelectionLabel || 'No selection' }}</span>
         <i class="glyphicon glyphicon-remove st-close"></i>
       </div>
-      <div ng-if="isSingle" class="col-12 col-xs-12 st-card-help">
-        <p class="help-block">{{ form.schema.selectionTipLabel || '' }}</p>
+      <div ng-if="isSingle && form.schema.selectionTipLabel" class="st-card-help">
+        <p class="help-block">{{ form.schema.selectionTipLabel }}</p>
       </div>
-      <div ng-class="{'col-12 col-xs-12': !nodeDescriptionShown, 'col-5 col-xs-5': nodeDescriptionShown}" class="st-card-body">
-        <div class="input-group" ng-hide="form.schema.noFilter" style="max-width: 200px" class="st-filter">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-          <input type="text" class="form-control" ng-model="text">
-        </div>
-        <sf-obiba-selection-tree-node
-          ng-repeat="node in form.schema.nodes | treeFilter:text"
-          node="node"
-          selections="selections"
-          text-filter="text"
-          single="isSingle"
-          on-toggle-children-selections="onSelectionUpdate(selections)"
-          on-toggle-description="toggleNodeDescription(node)"
-          readonly="form.readonly"
-          class="st-tree">
-        </sf-obiba-selection-tree-node>
-      </div>
-  
-      <div ng-show="nodeDescriptionShown" class="col-7 col-xs-7">
-        <div class="st-description">
-          <div class="st-description-head help-block">
-            <span>{{ nodeDescriptionShown }}</span>
+      <div class="row">
+        <div ng-class="{'col-12 col-xs-12': !nodeDescriptionShown, 'col-5 col-xs-5': nodeDescriptionShown}" class="st-card-body">
+          <div class="input-group" ng-hide="form.schema.noFilter" style="max-width: 200px" class="st-filter">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input type="text" class="form-control" ng-model="text">
           </div>
-          <div ng-bind-html="renderedDescription" class="st-description-body"></div>
+          <sf-obiba-selection-tree-node
+            ng-repeat="node in form.schema.nodes | treeFilter:text"
+            node="node"
+            selections="selections"
+            text-filter="text"
+            single="isSingle"
+            on-toggle-children-selections="onSelectionUpdate(selections)"
+            on-toggle-description="toggleNodeDescription(node)"
+            readonly="form.readonly"
+            class="st-tree">
+          </sf-obiba-selection-tree-node>
         </div>
-      </div>    
+    
+        <div ng-show="nodeDescriptionShown" class="col-7 col-xs-7">
+          <div class="st-description">
+            <div class="st-description-head help-block">
+              <span>{{ nodeDescriptionShown }}</span>
+            </div>
+            <div ng-bind-html="renderedDescription" class="st-description-body"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   
