@@ -8,7 +8,7 @@
 
   <div ng-if="isSingle" class="st-head">
     <span ng-class="ngModel.$modelValue ? 'st-selection' : 'st-no-selection' ">{{ ngModel.$modelValue || form.schema.noSelectionLabel || 'No selection' }}</span>
-    <button ng-if="!form.readonly" ng-click="toggleShowTree()" class="st-selector btn btn-sm btn-default" type="button">{{ form.schema.selectLabel || 'Select' }}</button>
+    <button ng-if="!form.readonly" ng-click="toggleShowTree()" class="st-selector btn btn-sm btn-default" type="button">{{ form.schema.selectLabel || 'Select...' }}</button>
   </div>
 
   <div ng-show="!isSingle || showTree" ng-class="'st-card-' + form.schema.type">
