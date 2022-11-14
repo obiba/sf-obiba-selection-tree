@@ -32,7 +32,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     onToggleDescription: '&'
   },
   templateUrl: 'src/templates/sf-obiba-selection-tree-node.html',
-  controller: function () {
+  controller: ['$scope', function($scope) {
     const ctrl = this;
 
     function controllerOnChanges(changeObj) {
@@ -91,12 +91,20 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       }
     }
 
+    $scope.$on('st-expand-all', function () {
+      ctrl.isOpen = true;
+    });
+
+    $scope.$on('st-collapse-all', function () {
+      ctrl.isOpen = false;
+    });
+
     ctrl.$onChanges = controllerOnChanges;
     ctrl.toggleNode = toggleNode;
     ctrl.toggleChildrenSelections = toggleChildrenSelections;
     ctrl.toggleDescription = toggleDescription;
     ctrl.toggleNodeSelection = toggleNodeSelection;
-  }
+  }]
 })
 .controller('sfObibaSelectionTreeController', ['$scope', 'marked',
   function ($scope, marked) {
@@ -165,6 +173,14 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       $scope.showTree = !$scope.showTree;  
     }
 
+    function expandAll() {
+      $scope.$broadcast('st-expand-all');
+    }
+
+    function collapseAll() {
+      $scope.$broadcast('st-collapse-all');
+    }
+
     $scope.nodeDescriptionShown = undefined;
     $scope.renderedDescription = '';
     $scope.selections = {};
@@ -172,6 +188,8 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     $scope.toggleNodeDescription = toggleNodeDescription;
     $scope.showTree = false;
     $scope.toggleShowTree = toggleShowTree;
+    $scope.expandAll = expandAll;
+    $scope.collapseAll = collapseAll;
     $scope.initialized = false;
 
     $scope.$watch('form', function () {

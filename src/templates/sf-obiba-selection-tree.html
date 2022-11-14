@@ -27,6 +27,10 @@
             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
             <input type="text" class="form-control" ng-model="text">
           </div>
+          <div ng-hide="form.schema.noExpandCollapse" style="margin: 10px 0 10px 0;">
+            <a ng-click="expandAll()" class="btn btn-sm">{{ form.schema.expandAllLabel || 'Expand all' }}</a>
+            <a ng-click="collapseAll()" class="btn btn-sm">{{ form.schema.collapseAllLabel || 'Collapse all' }}</a>
+          </div>
           <sf-obiba-selection-tree-node
             ng-repeat="node in form.schema.nodes | treeFilter:text"
             node="node"
