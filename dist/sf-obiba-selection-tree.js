@@ -128,7 +128,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       if (selectionsKeys && selectionsKeys.length > 0) {
         var selected = selectionsKeys.filter(function (selectionKey) {
           return $scope.selections[selectionKey];
-        });
+        }).sort(); // sort so that selections are ordered by path
         var selectedValue;
         if ($scope.form.schema.type === 'string') {
           if (selected.length === 0) {
