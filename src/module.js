@@ -138,6 +138,8 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
           selectedValue = selected;
         }
         $scope.ngModel.$setViewValue(selectedValue);
+      } else {
+        $scope.ngModel.$setViewValue(undefined);
       }
     }
 
@@ -180,6 +182,11 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     function collapseAll() {
       $scope.$broadcast('st-collapse-all');
     }
+    
+    function clear() {
+      $scope.selections = {};
+      updateSelections();  
+    }
 
     function selectionsCountLabel() {
       var selectionsCountLabel = $scope.form.selectionsCountLabel || '{0} selected items';
@@ -195,6 +202,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     $scope.toggleShowTree = toggleShowTree;
     $scope.expandAll = expandAll;
     $scope.collapseAll = collapseAll;
+    $scope.clear = clear;
     $scope.initialized = false;
     $scope.noSelectionLabel = 'No selection';
     $scope.selectionsCountLabel = selectionsCountLabel;
