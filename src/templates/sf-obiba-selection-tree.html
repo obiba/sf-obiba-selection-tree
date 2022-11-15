@@ -12,7 +12,7 @@
     <ul ng-if="!isSingle && ngModel.$modelValue && ngModel.$modelValue.length > 0">
       <li ng-repeat="item in ngModel.$modelValue">{{ item }}</li>
     </ul>
-    <button ng-if="!form.readonly" ng-click="toggleShowTree()" class="st-selector btn btn-sm btn-default" type="button">{{ form.schema.selectLabel || 'Select...' }}</button>
+    <button ng-if="!form.readonly" ng-click="toggleShowTree()" class="st-selector btn btn-sm btn-default" type="button">{{ form.selectLabel || 'Select...' }}</button>
   </div>
 
   <div ng-show="!isPopup || showTree" ng-class="'st-card-' + (isPopup ? 'popup' : 'inline')">
@@ -23,18 +23,18 @@
         <span ng-if="!isSingle">{{ ngModel.$modelValue ? selectionsCountLabel() : noSelectionLabel }}</span>
         <i class="glyphicon glyphicon-remove st-close"></i>
       </div>
-      <div ng-if="isPopup && form.schema.selectionTipLabel" class="st-card-help">
-        <p class="help-block">{{ form.schema.selectionTipLabel }}</p>
+      <div ng-if="isPopup && form.selectionTipLabel" class="st-card-help">
+        <p class="help-block">{{ form.selectionTipLabel }}</p>
       </div>
       <div class="row">
         <div ng-class="{'col-12 col-xs-12': !nodeDescriptionShown, 'col-5 col-xs-5': nodeDescriptionShown}" class="st-card-body">
-          <div class="input-group" ng-hide="form.schema.noFilter" style="max-width: 200px" class="st-filter">
+          <div class="input-group" ng-hide="noFilter" style="max-width: 200px" class="st-filter">
             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
             <input type="text" class="form-control" ng-model="text">
           </div>
-          <div ng-hide="form.schema.noExpandCollapse" style="margin: 10px 0 10px 0;">
-            <a ng-click="expandAll()" class="btn btn-sm">{{ form.schema.expandAllLabel || 'Expand all' }}</a>
-            <a ng-click="collapseAll()" class="btn btn-sm">{{ form.schema.collapseAllLabel || 'Collapse all' }}</a>
+          <div ng-hide="form.noExpandCollapse" style="margin: 10px 0 10px 0;">
+            <a ng-click="expandAll()" class="btn btn-sm">{{ form.expandAllLabel || 'Expand all' }}</a>
+            <a ng-click="collapseAll()" class="btn btn-sm">{{ form.collapseAllLabel || 'Collapse all' }}</a>
           </div>
           <sf-obiba-selection-tree-node
             ng-repeat="node in form.schema.nodes | treeFilter:text"
