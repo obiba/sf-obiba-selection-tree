@@ -1,5 +1,5 @@
 
-.st-card-string {
+.st-card-popup {
   position: fixed; /* Sit on top of the page content */
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
@@ -11,22 +11,22 @@
   z-index: 9000; /* Specify a stack order in case you're using a different order for other elements */
 }
 
-.st-card-string .st-card-header {
+.st-card-popup .st-card-header {
   cursor: pointer; /* Add a pointer on hover */
 }
 
-.st-card-string .st-card-header {
+.st-card-popup .st-card-header {
   color: #6c757d;
   font-size: large;
   margin-bottom: 10px;
 }
 
-.st-card-string .st-card-header i.st-close {
+.st-card-popup .st-card-header i.st-close {
   font-size: xx-large;
   float: right;
 }
 
-.st-card-string .st-card-section {
+.st-card-popup .st-card-section {
   position: absolute;
   margin: 20px;
   width: 80%;

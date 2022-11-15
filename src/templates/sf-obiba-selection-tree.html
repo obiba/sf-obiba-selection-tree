@@ -6,19 +6,24 @@
   sf-field-model>
   <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
 
-  <div ng-if="isSingle" class="st-head">
-    <span ng-class="ngModel.$modelValue ? 'st-selection' : 'st-no-selection' ">{{ ngModel.$modelValue || form.schema.noSelectionLabel || 'No selection' }}</span>
+  <div ng-if="isPopup" class="st-head">
+    <span ng-if="isSingle" ng-class="ngModel.$modelValue ? 'st-selection' : 'st-no-selection' ">{{ ngModel.$modelValue || noSelectionLabel }}</span>
+    <span ng-if="!isSingle && (!ngModel.$modelValue || ngModel.$modelValue.length === 0)" class="st-selection">{{ noSelectionLabel }}</span>
+    <ul ng-if="!isSingle && ngModel.$modelValue && ngModel.$modelValue.length > 0">
+      <li ng-repeat="item in ngModel.$modelValue">{{ item }}</li>
+    </ul>
     <button ng-if="!form.readonly" ng-click="toggleShowTree()" class="st-selector btn btn-sm btn-default" type="button">{{ form.schema.selectLabel || 'Select...' }}</button>
   </div>
 
-  <div ng-show="!isSingle || showTree" ng-class="'st-card-' + form.schema.type">
+  <div ng-show="!isPopup || showTree" ng-class="'st-card-' + (isPopup ? 'popup' : 'inline')">
 
     <div class="st-card-section">
-      <div ng-if="isSingle" ng-click="toggleShowTree()" class="st-card-header">
-        <span>{{ ngModel.$modelValue || form.schema.noSelectionLabel || 'No selection' }}</span>
+      <div ng-if="isPopup" ng-click="toggleShowTree()" class="st-card-header">
+        <span ng-if="isSingle">{{ ngModel.$modelValue || noSelectionLabel }}</span>
+        <span ng-if="!isSingle">{{ ngModel.$modelValue ? selectionsCountLabel() : noSelectionLabel }}</span>
         <i class="glyphicon glyphicon-remove st-close"></i>
       </div>
-      <div ng-if="isSingle && form.schema.selectionTipLabel" class="st-card-help">
+      <div ng-if="isPopup && form.schema.selectionTipLabel" class="st-card-help">
         <p class="help-block">{{ form.schema.selectionTipLabel }}</p>
       </div>
       <div class="row">
