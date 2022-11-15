@@ -31,6 +31,7 @@ form
 - *selectionTipLabel* is the text to display on top left of the selection tree (when using popup).
 - *expandAllLabel* is text in the "Expand all nodes" button. Default is `Expand all`.
 - *collapseAllLabel* is text in the "Collapse all nodes" button. Default is `Collapse all`.
+- *clearLabel* is the text in the "Clear" button. Default is `Clear`.
 
 node
 - *title* is a string

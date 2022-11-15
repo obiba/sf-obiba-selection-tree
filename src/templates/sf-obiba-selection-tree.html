@@ -35,6 +35,7 @@
           <div ng-hide="form.noExpandCollapse" style="margin: 10px 0 10px 0;">
             <a ng-click="expandAll()" class="btn btn-sm">{{ form.expandAllLabel || 'Expand all' }}</a>
             <a ng-click="collapseAll()" class="btn btn-sm">{{ form.collapseAllLabel || 'Collapse all' }}</a>
+            <a ng-click="clear()" class="btn btn-sm">{{ form.clearLabel || 'Clear' }}</a>
           </div>
           <sf-obiba-selection-tree-node
             ng-repeat="node in form.schema.nodes | treeFilter:text"
