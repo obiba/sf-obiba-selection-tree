@@ -148,8 +148,6 @@
                 "type": "array",
                 "format": "obibaSelectionTree",
                 "title": "Documents Tree - Multi Selections - Inline",
-                "noFilter": false,
-                "noExpandCollapse": false,
                 "items": { "type": "string" },
                 "nodes": nodes
               },
@@ -157,9 +155,6 @@
                 "type": "array",
                 "format": "obibaSelectionTree",
                 "title": "Documents Tree - Multi Selections - Popup",
-                "popup": true,
-                "noFilter": false,
-                "noExpandCollapse": false,
                 "items": { "type": "string" },
                 "nodes": nodes
               },
@@ -167,13 +162,9 @@
                 "type": "string",
                 "format": "obibaSelectionTree",
                 "title": "Document Tree - Single Selection",
-                "noFilter": false,
-                "noExpandCollapse": false,
                 "items": { "type": "string" },
                 "nodes": nodes,
-                "description": "Select one item in the tree.",
-                "noSelectionLabel": "No selection",
-                "selectionTipLabel": "Select an item in the tree, and close."
+                "description": "Select one item in the tree."
               },
               "documentNames": {
                 "type": "array",
@@ -186,7 +177,6 @@
                       "type": "string",
                       "format": "obibaSelectionTree",
                       "title": "Name",
-                      "noFilter": false,
                       "items": { "type": "string" },
                       "nodes": nodes
                     }
@@ -198,7 +188,15 @@
           };
           $scope.form = [
             "documents",
-            "documentsPopup",
+            {
+              "key": "documentsPopup",
+              "popup": true,
+              "noFilter": false,
+              "noExpandCollapse": false,
+              "noSelectionLabel": "No selection",
+              "selectionTipLabel": "Select some items in the tree, and close.",
+              "selectionsCountLabel": "{0} selections"
+            },
             "document",
             "documentNames"
           ];

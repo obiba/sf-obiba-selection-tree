@@ -12,14 +12,17 @@ gulp
 ```
 
 ### important
+
 schema
 - *title* is a string.
 - *type* MUST be either `array` (multiple selections) OR `string` (single selection) and is REQUIRED.
 - *format* MUST be `obibaSelectionTree` and is REQUIRED.
-- *noFilter* is `Boolean` and omitting it or setting it to false will enable the filter input box.
 - *items* MUST be `{ "type": "string" }` and is REQUIRED.
 - *nodes* is the array of objects that will be rendered and is REQUIRED.
 - *description* or *helpvalue* to display a help text.
+
+form
+- *noFilter* is `Boolean` and omitting it or setting it to false will enable the filter input box.
 - *noExpandCollapse* is `Boolean` and omitting it or setting it to false will enable the expand/collapse all nodes buttons.
 - *popup* is `Boolean` to specify that the selection tree will appear in a popup (always `true` when single selection, `false` by default otherwise).
 - *selectLabel* is the text in the select button (when using popup). Default is `Select...`.

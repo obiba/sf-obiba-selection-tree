@@ -182,7 +182,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     }
 
     function selectionsCountLabel() {
-      var selectionsCountLabel = $scope.form.schema.selectionsCountLabel || '{0} selected items';
+      var selectionsCountLabel = $scope.form.selectionsCountLabel || '{0} selected items';
       return selectionsCountLabel.replace('{0}', $scope.ngModel.$modelValue.length);
     }
 
@@ -198,12 +198,14 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     $scope.initialized = false;
     $scope.noSelectionLabel = 'No selection';
     $scope.selectionsCountLabel = selectionsCountLabel;
-
+    $scope.noFilter = false;
+    
     $scope.$watch('form', function () {
+      $scope.noFilter = $scope.form.noFilter || $scope.form.schema.noFilter; // legacy
       $scope.isSingle = $scope.form.schema.type === 'string';
-      $scope.isPopup = $scope.isSingle || ($scope.form.schema.popup === true);
+      $scope.isPopup = $scope.isSingle || ($scope.form.popup === true);
       $scope.showTree = !$scope.isPopup;
-      $scope.noSelectionLabel = $scope.form.schema.noSelectionLabel || 'No selection';
+      $scope.noSelectionLabel = $scope.form.noSelectionLabel || 'No selection';
     });
 
     $scope.$watch('ngModel.$modelValue', function () {
