@@ -147,7 +147,17 @@
               "documents": {
                 "type": "array",
                 "format": "obibaSelectionTree",
-                "title": "Documents Tree - Multi Selections",
+                "title": "Documents Tree - Multi Selections - Inline",
+                "noFilter": false,
+                "noExpandCollapse": false,
+                "items": { "type": "string" },
+                "nodes": nodes
+              },
+              "documentsPopup": {
+                "type": "array",
+                "format": "obibaSelectionTree",
+                "title": "Documents Tree - Multi Selections - Popup",
+                "popup": true,
                 "noFilter": false,
                 "noExpandCollapse": false,
                 "items": { "type": "string" },
@@ -188,6 +198,7 @@
           };
           $scope.form = [
             "documents",
+            "documentsPopup",
             "document",
             "documentNames"
           ];
@@ -198,6 +209,14 @@
               "ddd",
               "ddd/item1",
               "item1"
+            ],
+            documentsPopup: [
+              "aaa/aaaaaa/item2/item2",
+              "aaa/item1",
+              "bbb/item1",
+              "bbb/item2",
+              "bbb/item3",
+              "ccc/item1"
             ],
             document: "bbb/item1",
             documentNames: [
