@@ -71,6 +71,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
         if (selectedNode.type === 'd' || (Array.isArray(selectedNode.nodes) && selectedNode.nodes.length > 0)) {
           selectedNode.nodes.forEach(function (node) {
             ctrl.selections[node.path] = ctrl.selections[ctrl.currentNodePath];
+            toggleNodeSelection(node);
           });
         }
       } else {
