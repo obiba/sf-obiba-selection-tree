@@ -64,17 +64,28 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       ctrl.onToggleDescription({node: node});
     }
 
+    function nodehasText(node) {
+      var text = (ctrl.textFilter || "").trim().toLowerCase();
+      if (text.length === 0) return true;
+
+      var strings = ((node.path || "") + (node.title || "")).toLowerCase();
+      var firstLevelIsOk = strings.indexOf(text) > -1;
+      var nextLevelIsOk = (Array.isArray(node.nodes) && node.nodes.filter(function (nextLevelNode) { return nodehasText(nextLevelNode); }).length > 0);
+
+      return firstLevelIsOk || nextLevelIsOk;
+    }
+
     function toggleNodeSelection(selectedNode) {
       if (selectedNode) {
         if (selectedNode.type === 'd' || (Array.isArray(selectedNode.nodes) && selectedNode.nodes.length > 0)) {
-          selectedNode.nodes.forEach(function (node) {
+          selectedNode.nodes.filter(nodehasText).forEach(function (node) {
             ctrl.selections[node.path] = ctrl.selections[ctrl.currentNodePath];
             toggleNodeSelection(node);
           });
         }
       } else {
         if (!ctrl.isLeaf) {
-          ctrl.currentNode.nodes.forEach(function (node) {
+          ctrl.currentNode.nodes.filter(nodehasText).forEach(function (node) {
             ctrl.selections[node.path] = ctrl.selections[ctrl.currentNodePath];
             toggleNodeSelection(node);
           });
