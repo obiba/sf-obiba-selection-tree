@@ -23,6 +23,9 @@
         <span ng-if="!isSingle">{{ ngModel.$modelValue ? selectionsCountLabel() : noSelectionLabel }}</span>
         <i class="glyphicon glyphicon-remove st-close"></i>
       </div>
+      <div ng-if="isPopup && !form.notitle" class="st-card-title">
+        <label>{{ form.title }}</label>
+      </div>
       <div ng-if="isPopup && form.selectionTipLabel" class="st-card-help">
         <p class="help-block">{{ form.selectionTipLabel }}</p>
       </div>
