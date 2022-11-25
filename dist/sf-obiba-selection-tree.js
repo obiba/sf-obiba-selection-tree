@@ -66,14 +66,14 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       ctrl.onToggleDescription({node: node});
     }
 
-    function nodehasText(node) {      
+    function nodehasText(node) {
       var text = (ctrl.textFilter || "").trim().toLowerCase();
       if (text.length === 0) return true;
 
       var strings = ((node.path || "") + (node.title || "")).toLowerCase();
       var firstLevelIsOk = strings.indexOf(text) > -1;
       var nextLevelIsOk = (Array.isArray(node.nodes) && node.nodes.filter(function (nextLevelNode) { return nodehasText(nextLevelNode); }).length > 0);
-  
+
       return firstLevelIsOk || nextLevelIsOk;
     }
 
@@ -125,14 +125,54 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
 
     function init() {
       var val = $scope.ngModel.$modelValue;
-      
-      if (Array.isArray(val)) {
-        val.map(function (value) {
-          $scope.selections[value] = true;
-        });
-      } else if (typeof val === 'string') {
-        $scope.selections[val] = true;
+      var values = Array.isArray(val) ? val : (val === 'string' ? [val] : [])
+      values = values.map(function(x) { return x}) // desctructuring the reactive array, the old way
+
+      function selectNodes(nodes) {
+        if (nodes) {
+          for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i]
+            selectNodes(node.nodes)
+            if (values.includes(node.path)) {
+              $scope.selections[node.path] = true;
+            } else if (node.nodes) {
+              var notAllSelected = node.nodes.map(function(child) {
+                return values.includes(child.path)
+              }).includes(false)
+              // select node if all children where selected
+              if (!notAllSelected) {
+                $scope.selections[node.path] = true;
+                values.push(node.path)
+              }
+            }
+          }
+        }  
       }
+      
+      // apply selections
+      selectNodes($scope.form.schema.nodes)
+    }
+
+    function findNode(nodes, path) {
+      var found = undefined
+      if (nodes) {
+        for (var i = 0; i < nodes.length; i++) {
+          var node = nodes[i]
+          if (node.path === path) {
+            found = node
+          } else {
+            found = findNode(node.nodes, path)
+          }
+          if (found) {
+            break
+          }
+        }
+      }
+      return found
+    }
+
+    function isLeaf(node) {
+      return node && !(node.type === 'd' || (Array.isArray(node.nodes) && node.nodes.length > 0))
     }
 
     function updateSelections() {
@@ -141,6 +181,13 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
         var selected = selectionsKeys.filter(function (selectionKey) {
           return $scope.selections[selectionKey];
         }).sort(); // sort so that selections are ordered by path
+
+        // filter leafs
+        selected = selected.filter(function(path) {
+          var found = findNode($scope.form.schema.nodes, path)
+          return isLeaf(found)
+        })
+
         var selectedValue;
         if ($scope.form.schema.type === 'string') {
           if (selected.length === 0) {
