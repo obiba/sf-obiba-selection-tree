@@ -19,7 +19,6 @@ schema
 - *format* MUST be `obibaSelectionTree` and is REQUIRED.
 - *items* MUST be `{ "type": "string" }` and is REQUIRED.
 - *nodes* is the array of objects that will be rendered and is REQUIRED.
-- *description* or *helpvalue* to display a help text.
 
 form
 - *noFilter* is `Boolean` and omitting it or setting it to false will enable the filter input box.
@@ -32,6 +31,7 @@ form
 - *expandAllLabel* is text in the "Expand all nodes" button. Default is `Expand all`.
 - *collapseAllLabel* is text in the "Collapse all nodes" button. Default is `Collapse all`.
 - *clearLabel* is the text in the "Clear" button. Default is `Clear`.
+- *description* or *helpvalue* to display a help text.
 
 node
 - *title* is a string
