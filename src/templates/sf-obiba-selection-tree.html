@@ -13,6 +13,7 @@
       <li ng-repeat="item in ngModel.$modelValue">{{ item }}</li>
     </ul>
     <button ng-if="!form.readonly" ng-click="toggleShowTree()" class="st-selector btn btn-sm btn-default" type="button">{{ form.selectLabel || 'Select...' }}</button>
+    <a ng-if="form.readonly && ngModel.$modelValue" ng-click="toggleShowTree()" class="st-selector st-show">{{ form.showDetailsLabel || 'Show details...' }}</a>
   </div>
 
   <div ng-show="!isPopup || showTree" ng-class="'st-card-' + (isPopup ? 'popup' : 'inline')">
@@ -26,7 +27,7 @@
       <div ng-if="isPopup && !form.notitle" class="st-card-title">
         <label>{{ form.title }}</label>
       </div>
-      <div ng-if="isPopup && form.selectionTipLabel" class="st-card-help">
+      <div ng-if="isPopup && !form.readonly && form.selectionTipLabel" class="st-card-help">
         <p class="help-block">{{ form.selectionTipLabel }}</p>
       </div>
       <div class="row">
@@ -38,7 +39,7 @@
           <div ng-hide="form.noExpandCollapse" style="margin: 10px 0 10px 0;">
             <a ng-click="expandAll()" class="btn btn-sm">{{ form.expandAllLabel || 'Expand all' }}</a>
             <a ng-click="collapseAll()" class="btn btn-sm">{{ form.collapseAllLabel || 'Collapse all' }}</a>
-            <a ng-click="clear()" class="btn btn-sm">{{ form.clearLabel || 'Clear' }}</a>
+            <a ng-if="!form.readonly" ng-click="clear()" class="btn btn-sm">{{ form.clearLabel || 'Clear' }}</a>
           </div>
           <sf-obiba-selection-tree-node
             ng-repeat="node in form.schema.nodes | treeFilter:text"

@@ -25,6 +25,7 @@ form
 - *noExpandCollapse* is `Boolean` and omitting it or setting it to false will enable the expand/collapse all nodes buttons.
 - *popup* is `Boolean` to specify that the selection tree will appear in a popup (always `true` when single selection, `false` by default otherwise).
 - *selectLabel* is the text in the select button (when using popup). Default is `Select...`.
+- *showDetailsLabel* is the text in the show button (when using popup and form is read-only). Default is `Show details...`.
 - *noSelectionLabel* is the text to display when there is no selection (when using popup). Default is `No selection`.
 - *selectionsCountLabel* is the text to display when there is no selection (when using popup with `array` type). Default is `{0} selected items`.
 - *selectionTipLabel* is the text to display on top left of the selection tree (when using popup).
