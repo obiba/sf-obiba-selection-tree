@@ -66,3 +66,7 @@
 .st-selector {
   margin-left: 10px;
 }
+
+.st-selector.st-show {
+  font-size: smaller;
+}

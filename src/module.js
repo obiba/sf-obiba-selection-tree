@@ -123,7 +123,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
 
     function init() {
       var val = $scope.ngModel.$modelValue;
-      var values = Array.isArray(val) ? val : (val === 'string' ? [val] : [])
+      var values = Array.isArray(val) ? val : (typeof val === 'string' ? [val] : [])
       values = values.map(function(x) { return x}) // desctructuring the reactive array, the old way
 
       function selectNodes(nodes) {
