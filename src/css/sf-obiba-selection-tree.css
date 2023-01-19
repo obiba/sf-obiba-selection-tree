@@ -70,3 +70,7 @@
 .st-selector.st-show {
   font-size: smaller;
 }
+
+fieldset:disabled .st-form-group a.btn {
+  pointer-events: all;
+}

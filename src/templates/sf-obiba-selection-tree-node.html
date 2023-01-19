@@ -1,8 +1,8 @@
 <div class="st-node">
-  <button ng-click="$ctrl.toggleNode()" class="btn btn-sm btn-link" type="button">
+  <a ng-click="$ctrl.toggleNode()" class="btn btn-sm">
     <i class="glyphicon" ng-show="!$ctrl.isLeaf" ng-class="{'glyphicon-menu-right': !$ctrl.isOpen, 'glyphicon-menu-down': $ctrl.isOpen}"></i>
     <div ng-show="$ctrl.isLeaf" style="width: 1em;"></div>
-  </button>
+  </a>
 
   <input type="checkbox" name="{{$ctrl.currentNodePath}}" indeterminate 
     ng-disabled="$ctrl.readonly || (!$ctrl.isLeaf && $ctrl.single)" 
@@ -13,7 +13,7 @@
   <span>
     <i class="glyphicon" ng-class="{'glyphicon-folder-open': !$ctrl.isLeaf, 'glyphicon-file': $ctrl.isLeaf}" style="margin-right: 0.5em;"></i>
     <span ng-show="!$ctrl.hasDescription">{{$ctrl.currentNodeTitle}}</span>
-    <button ng-show="$ctrl.hasDescription" ng-click="$ctrl.toggleDescription($ctrl.currentNode)" class="btn btn-link" type="button">{{$ctrl.currentNodeTitle}}</button>
+    <a href="javascript:void(0)" ng-show="$ctrl.hasDescription" ng-click="$ctrl.toggleDescription($ctrl.currentNode)" class="btn btn-link">{{$ctrl.currentNodeTitle}}</a>
   </span>
 
   <div ng-show="!$ctrl.isLeaf && $ctrl.isOpen" style="margin-left: 1.25em;">
