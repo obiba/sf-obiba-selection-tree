@@ -169,6 +169,32 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       return found
     }
 
+    function toLabel(path) {
+      if (path) {
+        return toTitles($scope.form.schema.nodes, path)
+      }
+      return
+    }
+
+    function toTitles(nodes, path, acc) {
+      var title = undefined
+      if (nodes) {
+        for (var i = 0; i < nodes.length; i++) {
+          var node = nodes[i]
+          if (node.path === path) {
+            title = node.title
+          } else {
+            title = toTitles(node.nodes, path, node.title)
+          }
+          if (title) {
+            title = acc ? acc + ' > ' + title : title
+            break
+          }
+        }
+      }
+      return title
+    }
+
     function isLeaf(node) {
       return node && !(node.type === 'd' || (Array.isArray(node.nodes) && node.nodes.length > 0))
     }
@@ -231,7 +257,50 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     }
 
     function toggleShowTree() {
-      $scope.showTree = !$scope.showTree;  
+      $scope.showTree = !$scope.showTree;
+    }
+
+    function downloadSelections() {
+      // Empty array for storing the values
+      var csvRows = [];
+
+      csvRows.push(['path', 'label', 'title'].join(','));
+      if ($scope.ngModel.$modelValue) {
+        if (Array.isArray($scope.ngModel.$modelValue)) {
+          $scope.ngModel.$modelValue.forEach(function(path) {
+            var found = findNode($scope.form.schema.nodes, path)
+            if (found) {
+              csvRows.push(['"' + found.path + '"', '"' + toLabel(path) + '"', '"' + found.title + '"'].join(','));
+            }
+          });
+        } else if (typeof $scope.ngModel.$modelValue === 'string') {
+          var path = $scope.ngModel.$modelValue
+          var found = findNode($scope.form.schema.nodes, path)
+          if (found) {
+            csvRows.push(['"' + found.path + '"', '"' + toLabel(path) + '"', '"' + found.title + '"'].join(','));
+          }
+        }
+      }
+      
+      // Creating a Blob for having a csv file format
+      // and passing the data with type
+      const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' });
+  
+      // Creating an object for downloading url
+      const url = window.URL.createObjectURL(blob)
+  
+      // Creating an anchor(a) tag of HTML
+      const a = document.createElement('a')
+  
+      // Passing the blob downloading url
+      a.setAttribute('href', url)
+  
+      // Setting the anchor tag attribute for downloading
+      // and passing the download file name
+      a.setAttribute('download', $scope.form.key.filter(function(val) {return val !== ''}).join('-') + '.csv');
+  
+      // Performing a download with click
+      a.click()
     }
 
     function expandAll() {
@@ -259,6 +328,8 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     $scope.toggleNodeDescription = toggleNodeDescription;
     $scope.showTree = false;
     $scope.toggleShowTree = toggleShowTree;
+    $scope.downloadSelections = downloadSelections;
+    $scope.toLabel = toLabel;
     $scope.expandAll = expandAll;
     $scope.collapseAll = collapseAll;
     $scope.clear = clear;

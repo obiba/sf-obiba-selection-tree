@@ -32,6 +32,7 @@ form
 - *expandAllLabel* is text in the "Expand all nodes" button. Default is `Expand all`.
 - *collapseAllLabel* is text in the "Collapse all nodes" button. Default is `Collapse all`.
 - *clearLabel* is the text in the "Clear" button. Default is `Clear`.
+- *downloadLabel* is the text in the "Download" button (when form is read-only). Default is `Download`. If `false`, downloading selections is not available. 
 - *description* or *helpvalue* to display a help text.
 
 node

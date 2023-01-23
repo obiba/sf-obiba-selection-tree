@@ -67,10 +67,12 @@
   margin-left: 10px;
 }
 
-.st-selector.st-show {
+.st-selector.st-show, .st-selector.st-download {
   font-size: smaller;
 }
 
 fieldset:disabled .st-form-group a.btn {
   pointer-events: all;
+  cursor: pointer;
+  opacity: 1;
 }

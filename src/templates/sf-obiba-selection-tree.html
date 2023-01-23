@@ -7,10 +7,10 @@
   <label ng-if="!form.notitle" class="control-label" >{{form.title}}</label>
 
   <div ng-if="isPopup" class="st-head">
-    <span ng-if="isSingle" ng-class="ngModel.$modelValue ? 'st-selection' : 'st-no-selection' ">{{ ngModel.$modelValue || noSelectionLabel }}</span>
+    <span ng-if="isSingle" ng-class="ngModel.$modelValue ? 'st-selection' : 'st-no-selection' ">{{ toLabel(ngModel.$modelValue) || noSelectionLabel }}</span>
     <span ng-if="!isSingle && (!ngModel.$modelValue || ngModel.$modelValue.length === 0)" class="st-selection">{{ noSelectionLabel }}</span>
     <ul ng-if="!isSingle && ngModel.$modelValue && ngModel.$modelValue.length > 0">
-      <li ng-repeat="item in ngModel.$modelValue">{{ item }}</li>
+      <li ng-repeat="item in ngModel.$modelValue">{{ toLabel(item) }}</li>
     </ul>
     <button ng-if="!form.readonly" ng-click="toggleShowTree()" class="st-selector btn btn-sm btn-default" type="button">{{ form.selectLabel || 'Select...' }}</button>
     <a ng-if="form.readonly && ngModel.$modelValue" ng-click="toggleShowTree()" class="st-selector st-show">{{ form.showDetailsLabel || 'Show details...' }}</a>
@@ -40,6 +40,7 @@
             <a ng-click="expandAll()" class="btn btn-sm">{{ form.expandAllLabel || 'Expand all' }}</a>
             <a ng-click="collapseAll()" class="btn btn-sm">{{ form.collapseAllLabel || 'Collapse all' }}</a>
             <a ng-if="!form.readonly" ng-click="clear()" class="btn btn-sm">{{ form.clearLabel || 'Clear' }}</a>
+            <a ng-if="form.readonly && form.downloadLabel !== false && ngModel.$modelValue" ng-click="downloadSelections()" class="btn btn-sm">{{ form.downloadLabel || 'Download' }}</a>
           </div>
           <sf-obiba-selection-tree-node
             ng-repeat="node in form.schema.nodes | treeFilter:text"
