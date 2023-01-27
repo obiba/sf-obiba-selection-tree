@@ -32,7 +32,8 @@ form
 - *expandAllLabel* is text in the "Expand all nodes" button. Default is `Expand all`.
 - *collapseAllLabel* is text in the "Collapse all nodes" button. Default is `Collapse all`.
 - *clearLabel* is the text in the "Clear" button. Default is `Clear`.
-- *downloadLabel* is the text in the "Download" button (when form is read-only). Default is `Download`. If `false`, downloading selections is not available. 
+- *downloadLabel* is the text in the "Download" button (when form is read-only) that triggers download of the selected/all nodes in CSV format. Default is `Download`. If `false`, downloading selections is not available.
+- *downloadAll* is `Boolean` to specify whether downloaded CSV file should include both selected and not selected nodes, with a `selected` column. Default is `false`.
 - *description* or *helpvalue* to display a help text.
 
 node

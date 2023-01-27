@@ -199,6 +199,23 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       return node && !(node.type === 'd' || (Array.isArray(node.nodes) && node.nodes.length > 0))
     }
 
+    function toLeafs(nodes) {
+      var leafs = [];
+      if (nodes) {
+        for (var i = 0; i < nodes.length; i++) {
+          var node = nodes[i];
+          if (isLeaf(node)) {
+            leafs.push(node);
+          } else {
+            toLeafs(node.nodes).forEach(function(n) {
+              leafs.push(n);
+            });
+          }
+        }
+      }
+      return leafs;
+    }
+
     function updateSelections() {
       var selectionsKeys = Object.keys($scope.selections);
       if (selectionsKeys && selectionsKeys.length > 0) {
@@ -264,20 +281,39 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       // Empty array for storing the values
       var csvRows = [];
 
-      csvRows.push(['path', 'label', 'title'].join(','));
+      if ($scope.form.downloadAll === true) {
+        csvRows.push(['selected', 'path', 'label', 'title'].join(','));
+      } else {
+        csvRows.push(['path', 'label', 'title'].join(','));
+      }
+
       if ($scope.ngModel.$modelValue) {
         if (Array.isArray($scope.ngModel.$modelValue)) {
-          $scope.ngModel.$modelValue.forEach(function(path) {
+          if ($scope.form.downloadAll === true) {
+            toLeafs($scope.form.schema.nodes).forEach(function(node) {
+              var selected = $scope.ngModel.$modelValue.includes(node.path);
+              csvRows.push([selected ? 'x' : '', '"' + node.path + '"', '"' + toLabel(node.path) + '"', '"' + node.title + '"'].join(','));
+            });
+          } else {
+            $scope.ngModel.$modelValue.forEach(function(path) {
+              var found = findNode($scope.form.schema.nodes, path)
+              if (found) {
+                csvRows.push(['"' + found.path + '"', '"' + toLabel(path) + '"', '"' + found.title + '"'].join(','));
+              }
+            });
+          }
+        } else if (typeof $scope.ngModel.$modelValue === 'string') {
+          var path = $scope.ngModel.$modelValue
+          if ($scope.form.downloadAll === true) {
+            toLeafs($scope.form.schema.nodes).forEach(function(node) {
+              var selected = $scope.ngModel.$modelValue === node.path;
+              csvRows.push([selected ? 'x' : '', '"' + node.path + '"', '"' + toLabel(node.path) + '"', '"' + node.title + '"'].join(','));
+            });
+          } else {
             var found = findNode($scope.form.schema.nodes, path)
             if (found) {
               csvRows.push(['"' + found.path + '"', '"' + toLabel(path) + '"', '"' + found.title + '"'].join(','));
             }
-          });
-        } else if (typeof $scope.ngModel.$modelValue === 'string') {
-          var path = $scope.ngModel.$modelValue
-          var found = findNode($scope.form.schema.nodes, path)
-          if (found) {
-            csvRows.push(['"' + found.path + '"', '"' + toLabel(path) + '"', '"' + found.title + '"'].join(','));
           }
         }
       }
