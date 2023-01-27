@@ -249,7 +249,7 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
 
     function toggleNodeDescription(node) {
       if (!$scope.nodeDescriptionShown || $scope.nodeDescriptionShown !== node.path) {
-        $scope.nodeDescriptionShown = node.path;
+        $scope.nodeDescriptionShown = toLabel(node.path);
         render(node.description);
       } else {
         $scope.nodeDescriptionShown = undefined;
