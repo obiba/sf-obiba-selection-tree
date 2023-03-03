@@ -103,6 +103,10 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       }
     }
 
+    function isNodeDescribed(node) {
+      return ctrl.nodeDescribed && ctrl.nodeDescribed.path === node.path;
+    }
+
     $scope.$on('st-expand-all', function () {
       ctrl.isOpen = true;
     });
@@ -111,9 +115,14 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       ctrl.isOpen = false;
     });
 
+    $scope.$on('st-active-node', function (event, node) {
+      ctrl.nodeDescribed = node;
+    });
+
     ctrl.$onChanges = controllerOnChanges;
     ctrl.toggleNode = toggleNode;
     ctrl.toggleChildrenSelections = toggleChildrenSelections;
+    ctrl.isNodeDescribed = isNodeDescribed;
     ctrl.toggleDescription = toggleDescription;
     ctrl.toggleNodeSelection = toggleNodeSelection;
   }]
@@ -246,13 +255,16 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     }
 
     function toggleNodeDescription(node) {
-      if (!$scope.nodeDescriptionShown || $scope.nodeDescriptionShown !== node.path) {
+      if (!$scope.nodeDescribed || $scope.nodeDescribed.path !== node.path) {
+        $scope.nodeDescribed = node;
         $scope.nodeDescriptionShown = toLabel(node.path);
         render(node.description);
       } else {
+        $scope.nodeDescribed = undefined;
         $scope.nodeDescriptionShown = undefined;
         $scope.renderedDescription = '';
       }
+      $scope.$broadcast('st-active-node', $scope.nodeDescribed);
     }
 
     function render(lines) {

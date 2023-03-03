@@ -10,10 +10,10 @@
     ng-change="$ctrl.toggleNodeSelection()"
     style="margin-right: 1em;">
 
-  <span>
+  <span ng-class="{'active': $ctrl.isNodeDescribed($ctrl.currentNode)}">
     <i class="glyphicon" ng-class="{'glyphicon-folder-open': !$ctrl.isLeaf, 'glyphicon-file': $ctrl.isLeaf}" style="margin-right: 0.5em;"></i>
-    <span ng-show="!$ctrl.hasDescription">{{$ctrl.currentNodeTitle}}</span>
-    <a href="javascript:void(0)" ng-show="$ctrl.hasDescription" ng-click="$ctrl.toggleDescription($ctrl.currentNode)" class="btn btn-link">{{$ctrl.currentNodeTitle}}</a>
+    <span ng-if="!$ctrl.hasDescription">{{$ctrl.currentNodeTitle}}</span>
+    <a href="javascript:void(0)" ng-show="$ctrl.hasDescription" ng-click="$ctrl.toggleDescription($ctrl.currentNode)">{{$ctrl.currentNodeTitle}}</a>
   </span>
 
   <div ng-show="!$ctrl.isLeaf && $ctrl.isOpen" style="margin-left: 1.25em;">
