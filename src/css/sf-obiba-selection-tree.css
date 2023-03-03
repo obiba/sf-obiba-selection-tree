@@ -75,3 +75,7 @@ fieldset:disabled .st-form-group a.btn {
   cursor: pointer;
   opacity: 1;
 }
+
+.st-node .active {
+  font-weight: bold;
+}
