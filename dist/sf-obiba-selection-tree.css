@@ -26,6 +26,10 @@
   float: right;
 }
 
+.st-card-popup .st-card-header .btn.st-close {
+  float: right;
+}
+
 .st-card-popup .st-card-section {
   position: absolute;
   margin: 20px;

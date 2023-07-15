@@ -22,7 +22,8 @@
       <div ng-if="isPopup" ng-click="toggleShowTree()" class="st-card-header">
         <span ng-if="isSingle">{{ ngModel.$modelValue || noSelectionLabel }}</span>
         <span ng-if="!isSingle">{{ ngModel.$modelValue ? selectionsCountLabel() : noSelectionLabel }}</span>
-        <i class="glyphicon glyphicon-remove st-close"></i>
+        <span ng-if="form.closeLabel" class="btn btn-primary st-close">{{ form.closeLabel }}</span>
+        <i ng-if="!form.closeLabel" class="glyphicon glyphicon-remove st-close"></i>
       </div>
       <div ng-if="isPopup && !form.notitle" class="st-card-title">
         <label>{{ form.title }}</label>
