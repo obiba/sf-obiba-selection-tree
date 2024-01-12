@@ -1,21 +1,27 @@
 <div class="st-node">
-  <a ng-click="$ctrl.toggleNode()" class="btn btn-sm">
-    <i class="glyphicon" ng-show="!$ctrl.isLeaf" ng-class="{'glyphicon-menu-right': !$ctrl.isOpen, 'glyphicon-menu-down': $ctrl.isOpen}"></i>
-    <div ng-show="$ctrl.isLeaf" style="width: 1em;"></div>
-  </a>
-
-  <input type="checkbox" name="{{$ctrl.currentNodePath}}" indeterminate 
-    ng-disabled="$ctrl.readonly || (!$ctrl.isLeaf && $ctrl.single)" 
-    ng-model="$ctrl.selections[$ctrl.currentNodePath]" 
-    ng-change="$ctrl.toggleNodeSelection()"
-    style="margin-right: 1em;">
-
-  <span ng-class="{'active': $ctrl.isNodeDescribed($ctrl.currentNode)}">
-    <i class="glyphicon" ng-class="{'glyphicon-folder-open': !$ctrl.isLeaf, 'glyphicon-file': $ctrl.isLeaf}" style="margin-right: 0.5em;"></i>
-    <span ng-if="!$ctrl.hasDescription">{{$ctrl.currentNodeTitle}}</span>
-    <a href="javascript:void(0)" ng-show="$ctrl.hasDescription" ng-click="$ctrl.toggleDescription($ctrl.currentNode)">{{$ctrl.currentNodeTitle}}</a>
-  </span>
-
+  <div class="st-side-container">
+    <div class="st-side-by-side">
+      <a ng-click="$ctrl.toggleNode()" class="btn btn-sm">
+        <i class="glyphicon" ng-show="!$ctrl.isLeaf" ng-class="{'glyphicon-menu-right': !$ctrl.isOpen, 'glyphicon-menu-down': $ctrl.isOpen}"></i>
+        <div ng-show="$ctrl.isLeaf" style="width: 1em;"></div>
+      </a>
+    </div>
+    <div class="st-side-by-side">
+      <input type="checkbox" name="{{$ctrl.currentNodePath}}" indeterminate 
+        ng-disabled="$ctrl.readonly || (!$ctrl.isLeaf && $ctrl.single)" 
+        ng-model="$ctrl.selections[$ctrl.currentNodePath]" 
+        ng-change="$ctrl.toggleNodeSelection()"
+        style="margin-right: 1em;">
+    </div>
+    <div class="st-side-by-side">
+      <i class="glyphicon" ng-class="{'glyphicon-folder-open': !$ctrl.isLeaf, 'glyphicon-file': $ctrl.isLeaf}" style="margin-right: 0.5em;"></i>  
+    </div>
+    <div class="st-side-by-side" ng-class="{'active': $ctrl.isNodeDescribed($ctrl.currentNode)}">
+      <span ng-if="!$ctrl.hasDescription">{{$ctrl.currentNodeTitle}}</span>
+      <a href="javascript:void(0)" ng-show="$ctrl.hasDescription" ng-click="$ctrl.toggleDescription($ctrl.currentNode)">{{$ctrl.currentNodeTitle}}</a>
+    </div>  
+  </div>
+  
   <div ng-show="!$ctrl.isLeaf && $ctrl.isOpen" style="margin-left: 1.25em;">
     <sf-obiba-selection-tree-node
       ng-repeat="node in $ctrl.currentNode.nodes | treeFilter:$ctrl.textFilter"

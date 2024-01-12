@@ -19,49 +19,53 @@
   <div ng-show="!isPopup || showTree" ng-class="'st-card-' + (isPopup ? 'popup' : 'inline')">
 
     <div class="st-card-section">
-      <div ng-if="isPopup" ng-click="toggleShowTree()" class="st-card-header">
-        <span ng-if="isSingle">{{ ngModel.$modelValue || noSelectionLabel }}</span>
-        <span ng-if="!isSingle">{{ ngModel.$modelValue ? selectionsCountLabel() : noSelectionLabel }}</span>
-        <span ng-if="form.closeLabel" class="btn btn-primary st-close">{{ form.closeLabel }}</span>
-        <i ng-if="!form.closeLabel" class="glyphicon glyphicon-remove st-close"></i>
-      </div>
-      <div ng-if="isPopup && !form.notitle" class="st-card-title">
-        <label>{{ form.title }}</label>
-      </div>
-      <div ng-if="isPopup && !form.readonly && form.selectionTipLabel" class="st-card-help">
-        <p class="help-block">{{ form.selectionTipLabel }}</p>
-      </div>
-      <div class="row">
-        <div ng-class="nodesPanelClass()" class="st-card-body">
-          <div class="input-group" ng-hide="noFilter" style="max-width: 200px" class="st-filter">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-            <input type="text" class="form-control" ng-model="text">
-          </div>
-          <div ng-hide="form.noExpandCollapse" style="margin: 10px 0 10px 0;">
-            <a ng-click="expandAll()" class="btn btn-sm">{{ form.expandAllLabel || 'Expand all' }}</a>
-            <a ng-click="collapseAll()" class="btn btn-sm">{{ form.collapseAllLabel || 'Collapse all' }}</a>
-            <a ng-if="!form.readonly" ng-click="clear()" class="btn btn-sm">{{ form.clearLabel || 'Clear' }}</a>
-            <a ng-if="form.readonly && form.downloadLabel !== false && ngModel.$modelValue" ng-click="downloadSelections()" class="btn btn-sm">{{ form.downloadLabel || 'Download' }}</a>
-          </div>
-          <sf-obiba-selection-tree-node
-            ng-repeat="node in form.schema.nodes | treeFilter:text"
-            node="node"
-            selections="selections"
-            text-filter="text"
-            single="isSingle"
-            on-toggle-children-selections="onSelectionUpdate(selections)"
-            on-toggle-description="toggleNodeDescription(node)"
-            readonly="form.readonly"
-            class="st-tree">
-          </sf-obiba-selection-tree-node>
+      <div ng-if="isPopup" class="st-card-header">
+        <div>
+          <span ng-if="isSingle">{{ ngModel.$modelValue || noSelectionLabel }}</span>
+          <span ng-if="!isSingle">{{ ngModel.$modelValue ? selectionsCountLabel() : noSelectionLabel }}</span>
+          <span ng-if="form.closeLabel" ng-click="toggleShowTree()" class="btn btn-primary st-close" style="cursor: pointer;">{{ form.closeLabel }}</span>
+          <i ng-if="!form.closeLabel" ng-click="toggleShowTree()" class="glyphicon glyphicon-remove st-close" style="cursor: pointer;"></i>
         </div>
-    
-        <div ng-show="nodeDescriptionShown" ng-class="form.descriptionPanelClass ? form.descriptionPanelClass : 'col-6 col-xs-6'">
-          <div class="st-description">
-            <div class="st-description-head help-block">
-              <span>{{ nodeDescriptionShown }}</span>
+        <div ng-if="!form.notitle" class="st-card-title">
+          <label>{{ form.title }}</label>
+        </div>
+        <div ng-if="!form.readonly && form.selectionTipLabel" class="st-card-help">
+          <p class="help-block">{{ form.selectionTipLabel }}</p>
+        </div>
+      </div>
+      <div class="st-card-content">
+        <div class="row">
+          <div ng-class="nodesPanelClass()" class="st-card-body">
+            <div class="input-group" ng-hide="noFilter" style="max-width: 200px;" class="st-filter">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+              <input type="text" class="form-control" ng-model="text">
             </div>
-            <div ng-bind-html="renderedDescription" class="st-description-body"></div>
+            <div ng-hide="form.noExpandCollapse" style="margin: 10px 0 10px 0;">
+              <a ng-click="expandAll()" class="btn btn-sm">{{ form.expandAllLabel || 'Expand all' }}</a>
+              <a ng-click="collapseAll()" class="btn btn-sm">{{ form.collapseAllLabel || 'Collapse all' }}</a>
+              <a ng-if="!form.readonly" ng-click="clear()" class="btn btn-sm">{{ form.clearLabel || 'Clear' }}</a>
+              <a ng-if="form.readonly && form.downloadLabel !== false && ngModel.$modelValue" ng-click="downloadSelections()" class="btn btn-sm">{{ form.downloadLabel || 'Download' }}</a>
+            </div>
+            <sf-obiba-selection-tree-node
+              ng-repeat="node in form.schema.nodes | treeFilter:text"
+              node="node"
+              selections="selections"
+              text-filter="text"
+              single="isSingle"
+              on-toggle-children-selections="onSelectionUpdate(selections)"
+              on-toggle-description="toggleNodeDescription(node)"
+              readonly="form.readonly"
+              class="st-tree">
+            </sf-obiba-selection-tree-node>
+          </div>
+      
+          <div ng-show="nodeDescriptionShown" ng-class="form.descriptionPanelClass ? form.descriptionPanelClass : 'col-6 col-xs-6'">
+            <div class="st-description">
+              <div class="st-description-head help-block">
+                <span>{{ nodeDescriptionShown }}</span>
+              </div>
+              <div ng-bind-html="renderedDescription" class="st-description-body"></div>
+            </div>
           </div>
         </div>
       </div>
