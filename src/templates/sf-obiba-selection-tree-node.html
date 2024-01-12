@@ -1,10 +1,10 @@
 <div class="st-node">
   <div class="st-side-container">
     <div class="st-side-by-side">
-      <a ng-click="$ctrl.toggleNode()" class="btn btn-sm">
-        <i class="glyphicon" ng-show="!$ctrl.isLeaf" ng-class="{'glyphicon-menu-right': !$ctrl.isOpen, 'glyphicon-menu-down': $ctrl.isOpen}"></i>
-        <div ng-show="$ctrl.isLeaf" style="width: 1em;"></div>
+      <a ng-show="!$ctrl.isLeaf" ng-click="$ctrl.toggleNode()" class="btn btn-sm">
+        <i class="glyphicon" ng-class="{'glyphicon-menu-right': !$ctrl.isOpen, 'glyphicon-menu-down': $ctrl.isOpen}"></i>
       </a>
+      <span ng-show="$ctrl.isLeaf" style="margin-left: 34px;"></span>
     </div>
     <div class="st-side-by-side">
       <input type="checkbox" name="{{$ctrl.currentNodePath}}" indeterminate 

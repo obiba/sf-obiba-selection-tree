@@ -133,8 +133,8 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     function init() {
       var val = $scope.ngModel.$modelValue;
       var values = Array.isArray(val) ? val : (typeof val === 'string' ? [val] : [])
-      values = values.map(function(x) { return x}) // desctructuring the reactive array, the old way
-
+      values = values.map(function(x) { return x}) // destructuring the reactive array, the old way
+      
       function selectNodes(nodes) {
         if (nodes) {
           for (var i = 0; i < nodes.length; i++) {
@@ -287,6 +287,24 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
 
     function toggleShowTree() {
       $scope.showTree = !$scope.showTree;
+      if ($scope.showTree) {
+        var val = $scope.ngModel.$modelValue;
+        $scope.originalValues = angular.copy(val);
+      }
+    }
+
+    function saveAndClose() {
+      toggleShowTree();
+    }
+
+    function cancelAndClose() {
+      toggleShowTree();
+      // emit value change event
+      $scope.ngModel.$setViewValue($scope.originalValues);
+      // reset selections
+      $scope.selections = {};
+      $scope.ngModel.$modelValue = $scope.originalValues;
+      init();
     }
 
     function downloadSelections() {
@@ -380,10 +398,13 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
     $scope.nodesPanelClass = nodesPanelClass;
     $scope.renderedDescription = '';
     $scope.selections = {};
+    $scope.originalValues = {};
     $scope.onSelectionUpdate = updateSelections;
     $scope.toggleNodeDescription = toggleNodeDescription;
     $scope.showTree = false;
     $scope.toggleShowTree = toggleShowTree;
+    $scope.saveAndClose = saveAndClose;
+    $scope.cancelAndClose = cancelAndClose;
     $scope.downloadSelections = downloadSelections;
     $scope.toLabel = toLabel;
     $scope.expandAll = expandAll;

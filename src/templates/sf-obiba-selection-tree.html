@@ -23,8 +23,14 @@
         <div>
           <span ng-if="isSingle">{{ ngModel.$modelValue || noSelectionLabel }}</span>
           <span ng-if="!isSingle">{{ ngModel.$modelValue ? selectionsCountLabel() : noSelectionLabel }}</span>
-          <span ng-if="form.closeLabel" ng-click="toggleShowTree()" class="btn btn-primary st-close" style="cursor: pointer;">{{ form.closeLabel }}</span>
-          <i ng-if="!form.closeLabel" ng-click="toggleShowTree()" class="glyphicon glyphicon-remove st-close" style="cursor: pointer;"></i>
+          <span ng-if="form.readonly">
+            <span ng-if="form.closeLabel" ng-click="toggleShowTree()" class="btn btn-primary st-close">{{ form.closeLabel }}</span>
+            <i ng-if="!form.closeLabel" ng-click="toggleShowTree()" class="glyphicon glyphicon-remove st-close" ></i>
+          </span>
+          <span ng-if="!form.readonly">
+            <span ng-click="saveAndClose()" class="btn btn-primary st-save">{{ form.saveLabel || 'Save' }}</span>
+            <span ng-click="cancelAndClose()" class="btn btn-default st-cancel">{{ form.cancelLabel || 'Cancel' }}</span>
+          </span>
         </div>
         <div ng-if="!form.notitle" class="st-card-title">
           <label>{{ form.title }}</label>

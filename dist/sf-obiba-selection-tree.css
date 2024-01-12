@@ -18,13 +18,21 @@
   position: sticky;
 }
 
-.st-card-popup .st-card-header i.st-close {
+.st-card-popup .st-card-header i {
   font-size: xx-large;
   float: right;
 }
 
-.st-card-popup .st-card-header .btn.st-close {
+.st-card-popup .st-card-header .btn {
   float: right;
+}
+
+.st-close, .st-save, .st-cancel {
+  cursor: pointer;
+}
+
+.st-cancel {
+  margin-right: 10px;
 }
 
 .st-card-popup .st-card-section {

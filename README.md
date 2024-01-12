@@ -24,6 +24,9 @@ form
 - *noFilter* is `Boolean` and omitting it or setting it to false will enable the filter input box.
 - *noExpandCollapse* is `Boolean` and omitting it or setting it to false will enable the expand/collapse all nodes buttons.
 - *popup* is `Boolean` to specify that the selection tree will appear in a popup (always `true` when single selection, `false` by default otherwise).
+- *closeLabel* is the text in the popup close button (top right corner, when in read mode). Default is empty (icon is used instead).
+- *cancelLabel* is the text in the popup cancel button (top right corner, when in edit mode). Default is `Cancel`.
+- *saveLabel* is the text in the popup save button (top right corner, when in edit mode). Default is `Save`.
 - *selectLabel* is the text in the select button (when using popup). Default is `Select...`.
 - *showDetailsLabel* is the text in the show button (when using popup and form is read-only). Default is `Show details...`.
 - *noSelectionLabel* is the text to display when there is no selection (when using popup). Default is `No selection`.
@@ -32,7 +35,6 @@ form
 - *expandAllLabel* is text in the "Expand all nodes" button. Default is `Expand all`.
 - *collapseAllLabel* is text in the "Collapse all nodes" button. Default is `Collapse all`.
 - *clearLabel* is the text in the "Clear" button. Default is `Clear`.
-- *closeLabel* is the text in the popup close button (top right corner). Default is empty.
 - *downloadLabel* is the text in the "Download" button (when form is read-only) that triggers download of the selected/all nodes in CSV format. Default is `Download`. If `false`, downloading selections is not available.
 - *downloadAll* is `Boolean` to specify whether downloaded CSV file should include both selected and not selected nodes, with a `selected` column. Default is `false`.
 - *description* or *helpvalue* to display a help text.
