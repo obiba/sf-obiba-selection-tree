@@ -36,6 +36,8 @@ form
 - *downloadLabel* is the text in the "Download" button (when form is read-only) that triggers download of the selected/all nodes in CSV format. Default is `Download`. If `false`, downloading selections is not available.
 - *downloadAll* is `Boolean` to specify whether downloaded CSV file should include both selected and not selected nodes, with a `selected` column. Default is `false`.
 - *description* or *helpvalue* to display a help text.
+- *descriptionPanelClass* is the CSS class of the panel containing the item descriptions (complement of *nodeDescribedNodesPanelClass*). Default is `col-6 col-xs-6`.
+- *nodeDescribedNodesPanelClass* is the CSS class of the panel containing the nodes when a node description is displayed (complement of *descriptionPanelClass*). Default is `col-6 col-xs-6`.
 
 node
 - *title* is a string

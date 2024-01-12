@@ -369,7 +369,15 @@ angular.module('sfObibaSelectionTree', ['schemaForm', 'sfObibaSelectionTreeTempl
       return selectionsCountLabel.replace('{0}', $scope.ngModel.$modelValue.length);
     }
 
+    function nodesPanelClass() {
+      var nodesPanelClass = $scope.nodeDescriptionShown ?
+        ($scope.form.nodeDescribedNodesPanelClass ? $scope.form.nodeDescribedNodesPanelClass : 'col-6 col-xs-6') :
+        'col-12 col-xs-12';
+      return nodesPanelClass;
+    }
+
     $scope.nodeDescriptionShown = undefined;
+    $scope.nodesPanelClass = nodesPanelClass;
     $scope.renderedDescription = '';
     $scope.selections = {};
     $scope.onSelectionUpdate = updateSelections;

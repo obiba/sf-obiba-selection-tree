@@ -32,7 +32,7 @@
         <p class="help-block">{{ form.selectionTipLabel }}</p>
       </div>
       <div class="row">
-        <div ng-class="{'col-12 col-xs-12': !nodeDescriptionShown, 'col-5 col-xs-5': nodeDescriptionShown}" class="st-card-body">
+        <div ng-class="nodesPanelClass()" class="st-card-body">
           <div class="input-group" ng-hide="noFilter" style="max-width: 200px" class="st-filter">
             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
             <input type="text" class="form-control" ng-model="text">
@@ -56,7 +56,7 @@
           </sf-obiba-selection-tree-node>
         </div>
     
-        <div ng-show="nodeDescriptionShown" class="col-7 col-xs-7">
+        <div ng-show="nodeDescriptionShown" ng-class="form.descriptionPanelClass ? form.descriptionPanelClass : 'col-6 col-xs-6'">
           <div class="st-description">
             <div class="st-description-head help-block">
               <span>{{ nodeDescriptionShown }}</span>
